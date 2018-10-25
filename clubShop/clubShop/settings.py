@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'order',
     'goods',
     'show',
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [
@@ -81,13 +82,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'clubShop.wsgi.application'
 
 
+# django认证系统使用的模型类
+AUTH_USER_MODEL='user.User'
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        # 'CHARSET': 'utf8',
+        'NAME': 'club'
     }
 }
 
@@ -114,9 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -129,3 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+# FileField和ImageField上传文件存放的位置
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+# 上传文件的URL访问的位置
+MEDIA_URL = '/static/images/'

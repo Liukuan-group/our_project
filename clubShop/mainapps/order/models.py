@@ -18,7 +18,7 @@ class OrderInfo(BaseModel):
         (4, '待评价'),
         (5, '已完成'),
     )
-    user = models.ForeignKey('User', verbose_name='用户', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
     address = models.ForeignKey(Address, verbose_name='地址', on_delete=models.CASCADE)
     pay_method = models.SmallIntegerField(choices=PAY_METHOD_CHOICES, default=3, verbose_name='支付方式')
     price_total = models.FloatField(verbose_name='订单总价')
