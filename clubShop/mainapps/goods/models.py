@@ -12,7 +12,7 @@ class Goods(BaseModel):
     desc = models.CharField(max_length=100, verbose_name='商品简介')
     price = models.FloatField(verbose_name='商品价格')
     image = models.ImageField(upload_to='image/goods', verbose_name='商品图片')
-    status = models.SmallIntegerField(max_length=1, choices=status_choices, verbose_name='商品状态')
+    status = models.SmallIntegerField(choices=status_choices, verbose_name='商品状态')
 
     def __str__(self):
         return self.name

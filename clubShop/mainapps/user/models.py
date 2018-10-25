@@ -6,8 +6,8 @@ from db.base_model import BaseModel
 
 class User(AbstractUser, BaseModel):
     '''继承于Django自带用户认证系统'''
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username
 
     class Meta:
         db_table = 't_user'
