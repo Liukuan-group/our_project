@@ -20,4 +20,5 @@ import xadmin as admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
+    url(r'^user/', include('user.urls', namespace='user')),#用户模块
 ]
