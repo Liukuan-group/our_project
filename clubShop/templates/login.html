@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
 <head>
 <title>login</title>
-<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
-<script src="js/jquery.easydropdown.js"></script>
-<script src="js/responsiveslides.min.js"></script>
+<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<script src="{% static 'js/responsiveslides.min.js' %}"></script>
 <script>
     $(function () {
       $("#slider").responsiveSlides({
@@ -26,7 +27,6 @@
       });
     });
 </script>
-
 </head>
 <body>
     <!-- header-section-starts -->
@@ -53,8 +53,8 @@
 						</div>
 				    </div>
 					<!-- search-scripts -->
-					<script src="js/classie.js"></script>
-					<script src="js/uisearch.js"></script>
+					<script src="{% static 'js/classie.js' %}"></script>
+					<script src="{% static 'js/uisearch.js' %}"></script>
 						<script>
 							new UISearch( document.getElementById( 'sb-search' ) );
 						</script>
@@ -101,7 +101,7 @@
 						</li>
 							<li><a href="contact.html">CONTACT</a></li>
 						</ul>
-						<script type="text/javascript" src="js/nav.js"></script>
+						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 				</div>
 				<!-- end h_menu4 -->
 					<div class="clearfix"></div>
@@ -119,7 +119,7 @@
 				<div class="container">
 			   	 <ul class="breadcrumbs">
                     <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
+                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                        <span>&gt;</span>
                     </li>
                     <li class="women">
@@ -144,12 +144,12 @@
 				<p>If you have an account with us, please log in.</p>
 				<form>
 				  <div>
-					<span>Email Address<label>*</label></span>
-					<input type="text"> 
+					<span style="font-size: 2rem;color: red">Username<label>*</label></span>
+					<input type="text" name="username">
 				  </div>
 				  <div>
-					<span>Password<label>*</label></span>
-					<input type="text"> 
+					<span style="font-size: 2rem;color: red">Password<label>*</label></span>
+					<input type="text" name="password">
 				  </div>
 				  <a class="forgot" href="#">Forgot Your Password?</a>
 				  <input type="submit" value="Login">
