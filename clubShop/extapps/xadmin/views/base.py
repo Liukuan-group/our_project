@@ -263,7 +263,7 @@ class BaseAdminView(BaseAdminObject, View):
         self.init_request(*args, **kwargs)
 
     @classonlymethod
-    def as_view(cls) -> object:
+    def as_view(cls):
         def view(request, *args, **kwargs):
             self = cls(request, *args, **kwargs)
 

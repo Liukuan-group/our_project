@@ -23,7 +23,7 @@ class Class(BaseModel):
 
 class article(BaseModel):
     '''文章模型类'''
-    title = models.CharField(max_length=50, verbose_name='标题')
+    title = models.CharField(max_length=10, verbose_name='标题')
     content = UEditorField(verbose_name='内容',
                            blank=True,
                            width=640,height=480,
@@ -31,7 +31,7 @@ class article(BaseModel):
                            filePath='ueditor/files/',
                            toolbars='full')
 
-    date = models.DateTimeField(null=True, verbose_name='日期',auto_now_add=True)
+    date = models.DateTimeField(null=True, verbose_name='日期')
     image = models.ImageField(upload_to='article', verbose_name='文章图片',blank=True, null=True)
 
     def save(self, force_insert=False, force_update=False, using=None,
