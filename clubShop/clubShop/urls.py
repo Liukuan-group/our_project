@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^user/', include('user.urls', namespace='user')),#用户模块
+    url(r'^show/',include('show.urls',namespace='show')),  #文章展示模块
 ]

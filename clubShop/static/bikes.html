@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
 <head>
-<title>Register</title>
-<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<title>Article</title>
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
-<script src="js/jquery.easydropdown.js"></script>
-<script src="js/responsiveslides.min.js"></script>
+<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<script src="{% static 'js/responsiveslides.min.js' %}"></script>
 <script>
     $(function () {
       $("#slider").responsiveSlides({
@@ -53,8 +54,8 @@
 						</div>
 				    </div>
 					<!-- search-scripts -->
-					<script src="js/classie.js"></script>
-					<script src="js/uisearch.js"></script>
+					<script src="{% static 'js/classie.js' %}"></script>
+					<script src="{% static 'js/uisearch.js' %}"></script>
 						<script>
 							new UISearch( document.getElementById( 'sb-search' ) );
 						</script>
@@ -65,7 +66,7 @@
 		<div class="bottom-header">
 			<div class="container">
 				<div class="logo">
-					<a href="index.html"><h1>sporty</h1></a>
+					<a href="index.html"><h1>article</h1></a>
 				</div>
 				<div class="header_bottom_right">
 					<div class="h_menu4"><!-- start h_menu4 -->
@@ -82,14 +83,13 @@
 								<li><a href="products.html">sales</a></li>
 							</ul>
 						</li>
-						<li><a href="bikes.html">BIKES</a>
+						<li><a href="bikes.html">essay</a>
 							<ul>
-								<li><a href="bikes.html">Accessories</a></li>
-								<li><a href="bikes.html">helmets</a></li>
-								<li><a href="bikes.html">Footwear</a></li>
-								<li><a href="bikes.html">spets</a></li>
-								<li><a href="bikes.html">arms</a></li>
-								<li><a href="bikes.html">sales</a></li>
+                                {% for title in essaies %}
+                                    {% if title.id < 4 %}
+                                        <li><a href="bikes.html">{{ title.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
 							</ul>
 						</li>
 						<li><a href="products.html">GOLF</a>
@@ -101,7 +101,7 @@
 						</li>
 							<li><a href="contact.html">CONTACT</a></li>
 						</ul>
-						<script type="text/javascript" src="js/nav.js"></script>
+						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 				</div>
 				<!-- end h_menu4 -->
 					<div class="clearfix"></div>
@@ -116,7 +116,7 @@
 <div class="container">
 			   	 <ul class="breadcrumbs">
                     <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
+                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                        <span>&gt;</span>
                     </li>
                     <li>
@@ -133,73 +133,79 @@
 			   </div>
 			   <div class="container">
 <div class="biseller-info">
-<h3 class="new-models">Sales Models</h3>
-			<ul id="flexiselDemo3">
-				<li>
-					<div class="biseller-column">
-					<img src="images/sm1.jpg" alt="" class="veiw-img">
-						<div class="veiw-img-mark">
-							<a href="single.html">Quick view</a>
-						</div>
-					<div class="biseller-name">
-						<h4>Sport Bicycle 988</h4>
-						<p>$ 139.99</p>
-					</div>
-						<a href="single.html"><button class="add2cart">
-							<i class="white-cart1"></i>
-						    <span>| Add to Cart</span>
-						</button></a>					
-					</div>
-				</li>
-				<li>
-					<div class="biseller-column">
-					<img src="images/sm3.jpg" alt="" class="veiw-img">
-						<div class="veiw-img-mark">
-							<a href="single.html">Quick view</a>
-						</div>
-					<div class="biseller-name">
-						<h4>Classic Bicycle </h4>
-						<p>$ 219.99</p>
-					</div>
-						<a href="single.html"><button class="add2cart">
-							<i class="white-cart1"></i>
-						    <span>| Add to Cart</span>
-						</button></a>					
-					</div>
-				</li>
-			
-				<li>
-					<div class="biseller-column">
-					<img src="images/sm4.jpg" alt="" class="veiw-img">
-						<div class="veiw-img-mark">
-							<a href="single.html">Quick view</a>
-						</div>
-					<div class="biseller-name">
-						<h4>Retro Bicycle #2</h4>
-						<p>$ 899.99</p>
-					</div>
-						<a href="single.html"><button class="add2cart">
-							<i class="white-cart1"></i>
-						    <span>| Add to Cart</span>
-						</button></a>
-					</div>
-				</li>
-				<li>
-					<div class="biseller-column">
-					<img src="images/biscyle1.jpg" alt="" class="veiw-img">
-						<div class="veiw-img-mark">
-							<a href="single.html">Quick view</a>
-						</div>
-					<div class="biseller-name">
-						<h4>Classic Bicycle </h4>
-						<p>$ 219.99</p>
-					</div>
-						<a href="single.html"><button class="add2cart">
-							<i class="white-cart1"></i>
-						    <span>| Add to Cart</span>
-						</button></a>
-					</div>
-				</li>
+<h3 class="new-models">Article Title</h3>
+			<hr id="flexiselDemo3">
+                {% for i in essaies %}
+                    {% if i.id < 9 %}
+                        <div><span>{{ i.title }}</span></div>
+
+                    {% endif %}
+                {% endfor %}
+{#				<li>#}
+{#					<div class="biseller-column">#}
+{#					<img src="{% static 'images/sm1.jpg' %}" alt="" class="veiw-img">#}
+{#						<div class="veiw-img-mark">#}
+{#							<a href="single.html">Quick view</a>#}
+{#						</div>#}
+{#					<div class="biseller-name">#}
+{#						<h4>Sport Bicycle 988</h4>#}
+{#						<p>$ 139.99</p>#}
+{#					</div>#}
+{#						<a href="single.html"><button class="add2cart">#}
+{#							<i class="white-cart1"></i>#}
+{#						    <span>| Add to Cart</span>#}
+{#						</button></a>					#}
+{#					</div>#}
+{#				</li>#}
+{#				<li>#}
+{#					<div class="biseller-column">#}
+{#					<img src="{% static 'images/sm3.jpg' %}" alt="" class="veiw-img">#}
+{#						<div class="veiw-img-mark">#}
+{#							<a href="single.html">Quick view</a>#}
+{#						</div>#}
+{#					<div class="biseller-name">#}
+{#						<h4>Classic Bicycle </h4>#}
+{#						<p>$ 219.99</p>#}
+{#					</div>#}
+{#						<a href="single.html"><button class="add2cart">#}
+{#							<i class="white-cart1"></i>#}
+{#						    <span>| Add to Cart</span>#}
+{#						</button></a>					#}
+{#					</div>#}
+{#				</li>#}
+{#			#}
+{#				<li>#}
+{#					<div class="biseller-column">#}
+{#					<img src="{% static 'images/sm4.jpg' %}" alt="" class="veiw-img">#}
+{#						<div class="veiw-img-mark">#}
+{#							<a href="single.html">Quick view</a>#}
+{#						</div>#}
+{#					<div class="biseller-name">#}
+{#						<h4>Retro Bicycle #2</h4>#}
+{#						<p>$ 899.99</p>#}
+{#					</div>#}
+{#						<a href="single.html"><button class="add2cart">#}
+{#							<i class="white-cart1"></i>#}
+{#						    <span>| Add to Cart</span>#}
+{#						</button></a>#}
+{#					</div>#}
+{#				</li>#}
+{#				<li>#}
+{#					<div class="biseller-column">#}
+{#					<img src="{% static 'images/biscyle1.jpg' %}" alt="" class="veiw-img">#}
+{#						<div class="veiw-img-mark">#}
+{#							<a href="single.html">Quick view</a>#}
+{#						</div>#}
+{#					<div class="biseller-name">#}
+{#						<h4>Classic Bicycle </h4>#}
+{#						<p>$ 219.99</p>#}
+{#					</div>#}
+{#						<a href="single.html"><button class="add2cart">#}
+{#							<i class="white-cart1"></i>#}
+{#						    <span>| Add to Cart</span>#}
+{#						</button></a>#}
+{#					</div>#}
+{#				</li>#}
 	     	</ul>
 			</div>
 			
@@ -231,7 +237,7 @@
 				    
 				});
 			   </script>
-			   <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
 			
 				<div class="best-seller">
 				
@@ -240,7 +246,7 @@
 					<ul id="flexiselDemo1">
 						<li>
 							<div class="biseller-column">
-							<img src="images/sm1.jpg" alt="">
+							<img src="{% static 'images/sm1.jpg' %}" alt="">
 							<div class="veiw-img-mark">
 							<a href="single.html">Quick view</a>
 						</div>
@@ -256,7 +262,7 @@
 						</li>
 						<li>
 							<div class="biseller-column">
-							<img src="images/sm3.jpg" alt="">
+							<img src="{% static 'images/sm3.jpg' %}" alt="">
 							<div class="veiw-img-mark">
 							<a href="single.html">Quick view</a>
 						</div>
@@ -272,9 +278,9 @@
 						</li>
 						<li>
 							<div class="biseller-column">
-							<img src="images/sm1.jpg" alt="">
+							<img src="{% static 'images/sm1.jpg' %}" alt="">
 							<div class="veiw-img-mark">
-							<a href="single.html">Quick view</a>
+							<a href="{% static 'images/sm3.jpg' %}">Quick view</a>
 						</div>
 					<div class="biseller-name">
 						<h4>Classic Bicycle </h4>
@@ -288,7 +294,7 @@
 						</li>
 						<li>
 							<div class="biseller-column">
-							<img src="images/sm4.jpg" alt="">
+							<img src="{% static 'images/sm4.jpg' %}" alt="">
 							<div class="veiw-img-mark">
 							<a href="single.html">Quick view</a>
 						</div>
@@ -332,7 +338,7 @@
 				    
 				});
 			   </script>
-			   <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
 			
 			<div class="clearfix"></div>
 <div class="shipping">
@@ -340,7 +346,7 @@
 						<div class="col-md-7 shipping-left-grid">
 							<h3>free shipping</h3>
 							<div class="icon">
-								<img src="images/shipping-icon.png" alt="" />
+								<img src="{% static 'images/shipping-icon.png' %}" alt="" />
 							</div>
 							<div class="icon-text">
 								<p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem   feworem ipsum is dolor sit sud spendi desig sunpoen controey   feworem ipsum is dolor sit suspendi desig.</p>
