@@ -22,7 +22,7 @@ from goods import views
 urlpatterns = [
     url(r'^cate/', views.cate, name='cate'),
     url(r'^showall/(\d+)/', views.showall, name='showall'),
-    url(r'^showhot/', views.new_goods, name='showhot'),
+    # url(r'^showhot/', views.hot_goods, name='showhot'),
     url(r'^detail/(\d+)/', views.product_detail, name='detail'),
 
 ]

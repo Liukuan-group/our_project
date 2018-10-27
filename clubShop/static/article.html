@@ -2,7 +2,7 @@
 <html>
 {% load staticfiles %}
 <head>
-<title>Article</title>
+<title>Content</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -38,15 +38,10 @@
 					<p>Take and Extra 20% OFF with order upto $99</p>
 				</div>
 				<div class="login-section">
-					<ul style="color: #0f0f0f">
-                    {% if request.session.user_login %}
-						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
-						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
-                        {% else %}
-						<li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a>  </li> |
-						<li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a> </li>
-                    {% endif %}
-                </ul>
+					<ul>
+						<li><a href="../templates/login.html">Login</a>  </li> |
+						<li><a href="../templates/register.html">Register</a> </li>
+					</ul>
 				</div>
 				<!-- start search-->
 				    <div class="search-box">
@@ -71,37 +66,37 @@
 		<div class="bottom-header">
 			<div class="container">
 				<div class="logo">
-					<a href="index.html"><h1>article</h1></a>
+					<a href="../templates/index.html"><h1>article</h1></a>
 				</div>
 				<div class="header_bottom_right">
 					<div class="h_menu4"><!-- start h_menu4 -->
 					<a class="toggleMenu" href="#">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="index.html">HOME</a></li>
-						<li><a href="../static/products.html" class="root">FOOTBALL</a>
+						<li class="active"><a href="../templates/index.html">HOME</a></li>
+						<li><a href="products.html" class="root">FOOTBALL</a>
 							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">t-shirts</a></li>
-								<li><a href="../static/products.html">sporty dresses</a></li>
-								<li><a href="../static/products.html">balls</a></li>
-								<li><a href="../static/products.html">sales</a></li>
+								<li><a href="products.html">Accessories</a></li>
+								<li><a href="products.html">Footwear</a></li>
+								<li><a href="products.html">t-shirts</a></li>
+								<li><a href="products.html">sporty dresses</a></li>
+								<li><a href="products.html">balls</a></li>
+								<li><a href="products.html">sales</a></li>
 							</ul>
 						</li>
-						<li><a href="{% url 'show:articles' %}">essay</a>
+						<li><a href="../templates/product_list.html">essay</a>
 							<ul>
                                 {% for title in essaies %}
                                     {% if title.id <= 4 %}
-                                        <li><a href="{% url 'show:content' title.id %}">{{ title.title }}</a></li>
+                                        <li><a href="../templates/product_list.html">{{ title.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
 							</ul>
 						</li>
-						<li><a href="../static/products.html">GOLF</a>
+						<li><a href="products.html">GOLF</a>
 							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">Apparel</a></li>
+								<li><a href="products.html">Accessories</a></li>
+								<li><a href="products.html">Footwear</a></li>
+								<li><a href="products.html">Apparel</a></li>
 							</ul>
 						</li>
 							<li><a href="contact.html">CONTACT</a></li>
@@ -121,58 +116,43 @@
 <div class="container">
 			   	 <ul class="breadcrumbs">
                     <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
+                       <a href="../templates/index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                        <span>&gt;</span>
                     </li>
-                    <a href="{% url 'show:articles' %}">
-                        <li>essay</li>
-                    </a>
+                    <li>
+                       essay
+                    </li>&nbsp;
                        <span>&gt;</span>
 					<li>title</li>
                 </ul>
                 <ul class="previous">
-                	<li><a href="index.html">Back to Previous Page</a></li>
+                	<li><a href="../templates/index.html">Back to Previous Page</a></li>
                 </ul>
-{#                <div class="clearfix"></div>#}
+                <div class="clearfix"></div>
 			   </div>
 			   </div>
 			   <div class="container">
-
 <div class="biseller-info">
-{% block content %}
 <h3 class="new-models">Article Title</h3>
-
-<hr id="flexiselDemo3">
-    {% for i in page %}
-        <div class="title">
-            <img src="{{ i.image }}">
-            <a href="{% url 'show:content' i.id %} ">{{ i.title }}<hr></a>
+			<hr id="flexiselDemo3">
+        <div class="background:url('G:\新建文件夹\f20150112165649157199.jpg')">
+                        <div class="title" style="text-align: center;color: #0f0f0f;font-family: 华文行楷"><h1>{{ content_.title }}</h1></div><br>
+                        <div class="article" style="color: #0f0f0f;line-height: 30px;font-family: 楷体">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            {{ content_.content }}<hr>
+                        </div>
         </div>
-    {% endfor %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            {% if page.has_previous %}
-                <a href="{% url 'show:article' page.previous_page_number %}">上一页</a>
-            {% endif %}
-            {{ pag }}/{{ page_info.num_pages }}
-            {% if page.has_next %}
-                <a href="{% url 'show:article' page.next_page_number %}">下一页</a>
-            {% endif %}
-        </ul>
-    </nav>
+
 </div>
-{% endblock %}
-
-
 
 
 			<script type="text/javascript">
 
 			   </script>
 			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-			
+
 				<div class="best-seller">
-				
+
 					<div class="biseller-info">
 
 			</div>
@@ -180,7 +160,7 @@
 
 			   </script>
 			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-			
+
 			<div class="clearfix"></div>
 <div class="shipping">
 					<div class="shipping-section-grid">
@@ -197,10 +177,10 @@
 						<div class="col-md-5 shipping-right-grid">
 							<h3>news letter</h3>
 							<div class="news-search-box">
-                         <form> 
+                         <form>
                          <input type="text" class="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
                           <input type="submit" value>
-	                    </form> 
+	                    </form>
 	                   </div>
 				    </div>
 					<div class="clearfix"></div>
@@ -209,7 +189,7 @@
 			</div>
 	<!-- content-section-ends -->
 	<!-- footer-section-starts -->
-	<div class="footer"> 
+	<div class="footer">
 		<div class="container">
 			<div class="col-md-3 shop">
 				<h3>shop</h3>

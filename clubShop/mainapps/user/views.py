@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 
 from celery_tasks.tasks import send_register_active_email
 from clubShop import settings
-from user.models import User
+from user.models import User,Address
 # from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 # from itsdangerous import SignatureExpired
 
@@ -77,9 +77,9 @@ class RegisterView(View):
     #         except SignatureExpired as e:
     #             return HttpResponse('Activation link has expired')
 
+#/user/login
 class LoginView(View):
     def get(self,request):
-        print('222222222222222222')
         return render(request,'login.html')
     def post(self,request):
         username = request.POST['username']
@@ -96,7 +96,39 @@ class LoginView(View):
         if user is not None:
             #验证用户状态是否已经激活
             # if user.is_active == 1:
+            request.session['user_login'] = username
             return redirect('/')
             # return render(request, 'login.html', {'errormsg': '用户未激活'})
         return render(request, 'login.html', {'errormsg': '用户名或密码错误'})
 
+#/user/logout
+def log_out(request):
+    #退出登录
+    logout(request)
+    return redirect('/')
+
+#/user/address
+def showaddress(request,name):
+    #展示收货地址
+    user = User.objects.get(username=name)
+    address_list = Address.objects.filter(user_id=user.id)
+    return render(request, 'addrshow.html', locals())
+
+#/user/add
+class AddressView(View):
+    #添加收货地址
+    def get(self,request,name):
+        return render(request,'address.html',locals())
+    def post(self,request,name):
+        receiver = request.POST.get('receiver')
+        addr = request.POST.get('addr')
+        code = request.POST.get('code')
+        phone = request.POST.get('phone')
+        if not all([receiver, addr, phone]):
+            return render(request, 'address.html', {'errormsg': '数据不完整'})
+            # 校验手机号
+        if not re.match(r'^1[3-8]\d{9}$', phone):
+            return render(request, 'address.html', {'errormsg': '手机格式不正确'})
+        user = User.objects.get(username=name)
+        Address.objects.create(receiver=receiver,addr=addr,code=code,phone=phone,user=user)
+        return redirect('/user/address/'+name+'/')

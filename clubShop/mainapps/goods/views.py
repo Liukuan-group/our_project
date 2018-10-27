@@ -1,4 +1,5 @@
 import json
+import random
 
 from django.shortcuts import render
 from goods.models import Goods, Category
@@ -15,6 +16,8 @@ from goods.models import Goods, Category
 # good.price = product_dic[0]['商品价格'][0]
 # good.image = product_dic[0]['图片地址']
 # good.save()
+from show.models import article
+
 
 def cate(request):
     cates = Category.objects.all()
@@ -22,16 +25,24 @@ def cate(request):
     return render(request, 'index.html', locals())
 
 def showall(request, cate_id):
-    cate_all = Category.objects.get(id=cate_id).goods_set.all()
+    cates = Category.objects.all()
+    essaies = article.objects.all()
+    cate = Category.objects.get(id=cate_id)
+    product_all = cate.goods_set.all()
+    print(product_all)
     return render(request, 'product_list.html', locals())
 
-def new_goods(request):
-    new_goods_all = Goods.objects.raw('select * from t_goods order by id where id > 7')
-    return render(request, 'index.html', locals())
+# def hot_goods(request):
+#     hot_goods_all = Goods.objects.raw('select * from t_goods order by id where id > 7')
+#     print(hot_goods_all)
+#     return render(request, 'index.html', locals())
 
 
 def product_detail(request, product_id):
+    cates = Category.objects.all()
+
+    essaies = article.objects.all()
     product = Goods.objects.get(id=product_id)
-    return render(request, 'products.html', locals())
+    return render(request, 'single.html', locals())
 
 
