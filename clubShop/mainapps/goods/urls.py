@@ -13,22 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
-from django.shortcuts import render
-
-import xadmin as admin
-from goods.models import Category
+from django.conf.urls import url
+from goods import views
 
 
-def to_index(request):
-    cates = Category.objects.all()
-    return render(request, 'index.html',locals())
+
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^ueditor/', include('DjangoUeditor.urls')),
-    url(r'^user/', include('user.urls', namespace='user')),#用户模块
-    url(r'^goods/', include('goods.urls', namespace='goods')),
-    url(r'^show/',include('show.urls',namespace='show')),  #文章展示模块
-    url(r'', to_index),
+    url(r'^cate/', views.cate, name='cate'),
+    url(r'^showall/(\d+)/', views.showall, name='showall'),
+    url(r'^showhot/', views.new_goods, name='showhot'),
+    url(r'^detail/(\d+)/', views.product_detail, name='detail'),
+
 ]

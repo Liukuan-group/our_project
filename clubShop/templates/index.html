@@ -31,7 +31,7 @@
 		    <script type="text/javascript">
 			    $(document).ready(function () {
 			        $('#horizontalTab').easyResponsiveTabs({
-			            type: 'default', //Types: default, vertical, accordion           
+			            type: 'default', //Types: default, vertical, accordion
 			            width: 'auto', //auto or any width like 600px
 			            fit: true   // 100% fit in a container
 			        });
@@ -40,7 +40,7 @@
 <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
 <script type="text/javascript">
 			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event){		
+				$(".scroll").click(function(event){
 					event.preventDefault();
 					$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 				});
@@ -54,7 +54,7 @@
 		<div class="top-header">
 			<div class="container">
 				<div class="header-left">
-					<p>Take and Extra 20% OFF with order upto $99</p>
+					<p>For life , For health</p>
 				</div>
 				<div class="login-section">
 					<ul>
@@ -92,26 +92,31 @@
 					<div class="h_menu4">
 					<a class="toggleMenu" href="">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="">HOME</a></li>
-						<li><a href="products.html" class="root">FOOTBALL</a>
+						<li class="active"><a href="">首页</a></li>
+                        <li><a href="products.html" class="root">健身器材</a>
 							<ul>
-								<li><a href="products.html">Accessories</a></li>
-								<li><a href="products.html">Footwear</a></li>
-								<li><a href="products.html">t-shirts</a></li>
-								<li><a href="products.html">sporty dresses</a></li>
-								<li><a href="products.html">balls</a></li>
-								<li><a href="products.html">sales</a></li>
+                                {% for cate in cates %}
+                                    <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
+                                {% endfor %}
 							</ul>
 						</li>
-						<li><a href="bikes.html">BIKES</a>
-							<ul>
-								<li><a href="bikes.html">Accessories</a></li>
-								<li><a href="bikes.html">helmets</a></li>
-								<li><a href="bikes.html">Footwear</a></li>
-								<li><a href="bikes.html">spets</a></li>
-								<li><a href="bikes.html">arms</a></li>
-								<li><a href="bikes.html">sales</a></li>
-							</ul>
+{#						<li><a href="products.html" class="root">健身器材</a>#}
+{#							<ul>#}
+{#                                <li><a href="{% url 'goods:showall' %}">跑步机</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">健身车</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">力量器械</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">按摩椅</a></li>#}
+{#							</ul>#}
+{#						</li>#}
+						<li><a href="{% url 'show:article' %}">ESSAY</a>
+{#							<ul>#}
+{#								<li><a href="product_list.html">Accessories</a></li>#}
+{#								<li><a href="product_list.html">helmets</a></li>#}
+{#								<li><a href="product_list.html">Footwear</a></li>#}
+{#								<li><a href="product_list.html">spets</a></li>#}
+{#								<li><a href="product_list.html">arms</a></li>#}
+{#								<li><a href="product_list.html">sales</a></li>#}
+{#							</ul>#}
 						</li>
 						<li><a href="products.html">GOLF</a>
 							<ul>
@@ -143,7 +148,7 @@
 					<div class="add-to-cart">
 					<p>Lorem ipsum dolor</p>
 					 <form action="" class="sky-form">
-						     <fieldset>					
+						     <fieldset>
 							   <section>
 							     <div class="rating">
 									<input type="radio" name="stars-rating" id="stars-rating-5">
@@ -173,7 +178,7 @@
 			</div>
 			<div class="watch-and-buy">
 				<div class="select">
-					<h2>watch & Buy</h2>
+					<h2>欢迎  &nbsp;&&nbsp;   乐购</h2>
 				</div>
 				<div class="preview">
 					<img src="{% static 'images/side2.jpg' %}" alt="" />
@@ -190,133 +195,137 @@
 				<div class="clearfix"></div>
 		    </div>
 		    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
-	<div class="sap_tabs">	
+	<div class="sap_tabs">
 						 <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 						  <ul class="resp-tabs-list">
-						  	  <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>new arrivals</span></li>
-							  <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>latest products</span></li>
-							  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>best seller</span></li>
+						  	  <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>新货爆款</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>热卖商品</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>买家秀</span></li>
 							  <div class="clearfix"></div>
-						  </ul>				  	 
+						  </ul>
 							<div class="resp-tabs-container">
 							    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 									<ul class="tab_img">
-									  <li>
+									  {% for new_good in new_goods_all %}
+                                          <li>
 										<div class="view view-first">
 					   		  			   <img src="{% static 'images/pic1.jpg' %}" class="img-responsive" alt=""/>
 										   <div class="info1"><h4>hot</h4> </div>
 											 <div class="mask">
-						                        
+
 								              </div>
 								              <div class="tab_desc">
 											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
+												  <h5>{{ new_good.name }}</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>{{ new_good.price }}</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
-											
+
 										  </div>
 										  <img src="{% static 'images/rating.png' %}" alt="" />
 										</li>
-										<li>
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic2.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li class="last">
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic3.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-									    <li>
-									     <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic4.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li>
-										 <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic12.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li class="last">
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic6.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
+									  {% endfor %}
+
+{#										<li>#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic2.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$1001</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li class="last">#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic3.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$1002</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#									    <li>#}
+{#									     <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic4.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$1003</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li>#}
+{#										 <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic12.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$1004</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li class="last">#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic6.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$1005</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
 										<div class="clearfix"></div>
 									</ul>
-							     </div>	
+							     </div>
 							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
 									<ul class="tab_img">
-									  <li>
+									  {% for foo in new_goods_all %}
+									        <li>
 										<div class="view view-first">
 					   		  			   <img src="{% static 'images/pic8.jpg' %}" class="img-responsive" alt=""/>
 											 <div class="mask">
@@ -327,106 +336,108 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$2000</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
 										  </div>
 										  <img src="{% static 'images/rating.png' %}" alt="" />
 										</li>
-										<li>
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic7.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li class="last">
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic3.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								             <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-									    <li>
-									     <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic9.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li>
-										 <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic12.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
-										<li class="last">
-										  <div class="view view-first">
-					   		  			   <img src="{% static 'images/pic6.jpg' %}" class="img-responsive" alt=""/>
-											 <div class="mask">
-						                        <div class="info1"> </div>
-								              </div>
-								              <div class="tab_desc">
-											  <div class="tab_desc_1">
-												  <h5>Lorem ipsum dolor</h5>
-											  </div>
-											  <div class="tab_desc_2">
-												  <p>$59.95</p>
-											  </div>
-											  <div class="clearfix"></div>
-											  </div>
-										  </div>
-										  <img src="{% static 'images/rating.png' %}" alt="" />
-										</li>
+									  {% endfor %}
+
+{#										<li>#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic7.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$2001</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li class="last">#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic3.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								             <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$2002</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#									    <li>#}
+{#									     <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic9.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$2003</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li>#}
+{#										 <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic12.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$2004</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
+{#										<li class="last">#}
+{#										  <div class="view view-first">#}
+{#					   		  			   <img src="{% static 'images/pic6.jpg' %}" class="img-responsive" alt=""/>#}
+{#											 <div class="mask">#}
+{#						                        <div class="info1"> </div>#}
+{#								              </div>#}
+{#								              <div class="tab_desc">#}
+{#											  <div class="tab_desc_1">#}
+{#												  <h5>Lorem ipsum dolor</h5>#}
+{#											  </div>#}
+{#											  <div class="tab_desc_2">#}
+{#												  <p>$2005</p>#}
+{#											  </div>#}
+{#											  <div class="clearfix"></div>#}
+{#											  </div>#}
+{#										  </div>#}
+{#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
+{#										</li>#}
 										<div class="clearfix"></div>
 									</ul>
-							     </div>	
+							     </div>
 							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
 									<ul class="tab_img">
 									  <li>
@@ -440,7 +451,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3000</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -458,7 +469,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3001</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -476,7 +487,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3002</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -494,7 +505,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3003</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -512,7 +523,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3004</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -530,7 +541,7 @@
 												 <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$3005</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -539,7 +550,7 @@
 										</li>
 										<div class="clearfix"></div>
 									</ul>
-							     </div>	
+							     </div>
 							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-3">
 									<ul class="tab_img">
 									  <li>
@@ -553,7 +564,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4000</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -571,7 +582,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4001</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -589,7 +600,7 @@
 												 <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4002</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -607,7 +618,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4003</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -625,7 +636,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4004</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -643,7 +654,7 @@
 												  <h5>Lorem ipsum dolor</h5>
 											  </div>
 											  <div class="tab_desc_2">
-												  <p>$59.95</p>
+												  <p>$4005</p>
 											  </div>
 											  <div class="clearfix"></div>
 											  </div>
@@ -652,8 +663,8 @@
 										</li>
 										<div class="clearfix"></div>
 									</ul>
-							</div>		        					 	        					 
-					</div>	
+							</div>
+					</div>
               </div>
          </div>
 		</div>
@@ -673,10 +684,10 @@
 						<div class="col-md-5 shipping-right-grid">
 							<h3>news letter</h3>
 							<div class="news-search-box">
-                         <form> 
+                         <form>
                          <input type="text" class="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
                           <input type="submit" value>
-	                    </form> 
+	                    </form>
 	                   </div>
 				    </div>
 					<div class="clearfix"></div>

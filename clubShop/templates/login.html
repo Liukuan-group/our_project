@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
 <head>
 <title>login</title>
-<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
-<script src="js/jquery.easydropdown.js"></script>
-<script src="js/responsiveslides.min.js"></script>
+<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<script src="{% static 'js/responsiveslides.min.js' %}"></script>
 <script>
     $(function () {
       $("#slider").responsiveSlides({
@@ -26,7 +27,6 @@
       });
     });
 </script>
-
 </head>
 <body>
     <!-- header-section-starts -->
@@ -38,8 +38,8 @@
 				</div>
 				<div class="login-section">
 					<ul>
-						<li><a href="login.html">Login</a>  </li> |
-						<li><a href="register.html">Register</a> </li>
+						<li><a href="{% url 'user:login' %}">Login</a>  </li> |
+						<li><a href="{% url 'user:register' %}">Register</a> </li>
 					</ul>
 				</div>
 				<!-- start search-->
@@ -53,8 +53,8 @@
 						</div>
 				    </div>
 					<!-- search-scripts -->
-					<script src="js/classie.js"></script>
-					<script src="js/uisearch.js"></script>
+					<script src="{% static 'js/classie.js' %}"></script>
+					<script src="{% static 'js/uisearch.js' %}"></script>
 						<script>
 							new UISearch( document.getElementById( 'sb-search' ) );
 						</script>
@@ -71,8 +71,8 @@
 					<div class="h_menu4"><!-- start h_menu4 -->
 					<a class="toggleMenu" href="#">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="index.html">HOME</a></li>
-						<li><a href="products.html" class="root">FOOTBALL</a>
+						<li class="active"><a href="/">首页</a></li>
+						<li><a href="products.html" class="root">健身器材</a>
 							<ul>
 								<li><a href="products.html">Accessories</a></li>
 								<li><a href="products.html">Footwear</a></li>
@@ -101,7 +101,7 @@
 						</li>
 							<li><a href="contact.html">CONTACT</a></li>
 						</ul>
-						<script type="text/javascript" src="js/nav.js"></script>
+						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 				</div>
 				<!-- end h_menu4 -->
 					<div class="clearfix"></div>
@@ -110,16 +110,16 @@
 		</div>
 	</div>
 	<!-- header-section-ends -->
-	
+
 	<!-- content-section-starts -->
 	<div class="content">
-		
+
 		<div class="login-page">
 			    <div class="dreamcrub">
 				<div class="container">
 			   	 <ul class="breadcrumbs">
                     <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
+                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                        <span>&gt;</span>
                     </li>
                     <li class="women">
@@ -142,19 +142,21 @@
 			   <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
 			  	<h3>REGISTERED CUSTOMERS</h3>
 				<p>If you have an account with us, please log in.</p>
-				<form>
+				<form method="post">
+                    {% csrf_token %}
 				  <div>
-					<span>Email Address<label>*</label></span>
-					<input type="text"> 
+					<span style="font-size: 2rem;color: red">Username<label>*</label></span>
+					<input type="text" name="username" placeholder="输入用户名" style="width: 200px">
 				  </div>
 				  <div>
-					<span>Password<label>*</label></span>
-					<input type="text"> 
+					<span style="font-size: 2rem;color: red">Password<label>*</label></span>
+					<input type="password" name="password" placeholder="输入密码"  style="width: 200px">
 				  </div>
-				  <a class="forgot" href="#">Forgot Your Password?</a>
-				  <input type="submit" value="Login">
+{#				  <a class="forgot" href="#">Forgot Your Password?</a>#}
+				  <input type="submit" value="登录">
 			    </form>
-			   </div>	
+                   <h4 style="color: indianred">{{ errormsg }}</h4>
+			   </div>
 			   <div class="clearfix"> </div>
 			 </div>
 		   </div>
@@ -163,7 +165,7 @@
 	</div>
 	<!-- content-section-ends -->
 	<!-- footer-section-starts -->
-	<div class="footer"> 
+	<div class="footer">
 		<div class="container">
 			<div class="col-md-3 shop">
 				<h3>shop</h3>

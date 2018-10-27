@@ -1,8 +1,8 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
-{% load staticfiles %}
 <head>
-<title>Register</title>
+<title>{% block tilte %}For life  For health{% endblock %}</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -27,15 +27,35 @@
       });
     });
 </script>
+<script src="{% static 'js/easyResponsiveTabs.js' %}" type="text/javascript"></script>
+		    <script type="text/javascript">
+			    $(document).ready(function () {
+			        $('#horizontalTab').easyResponsiveTabs({
+			            type: 'default', //Types: default, vertical, accordion
+			            width: 'auto', //auto or any width like 600px
+			            fit: true   // 100% fit in a container
+			        });
+			    });
+</script>
+<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
+				});
+			});
+		</script>
 
 </head>
+
 <body>
     <!-- header-section-starts -->
 	<div class="header">
 		<div class="top-header">
 			<div class="container">
 				<div class="header-left">
-					<p>Take and Extra 20% OFF with order upto $99</p>
+					<p>For life , For health</p>
 				</div>
 				<div class="login-section">
 					<ul>
@@ -69,29 +89,35 @@
 					<a href="index.html"><h1>sporty</h1></a>
 				</div>
 				<div class="header_bottom_right">
-					<div class="h_menu4"><!-- start h_menu4 -->
-					<a class="toggleMenu" href="#">Menu</a>
+				<!-- start h_menu4 -->
+					<div class="h_menu4">
+					<a class="toggleMenu" href="">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="/">首页</a></li>
-						<li><a href="products.html" class="root">健身器材</a>
+						<li class="active"><a href="">首页</a></li>
+                        <li><a href="products.html" class="root">健身器材</a>
 							<ul>
-								<li><a href="products.html">Accessories</a></li>
-								<li><a href="products.html">Footwear</a></li>
-								<li><a href="products.html">t-shirts</a></li>
-								<li><a href="products.html">sporty dresses</a></li>
-								<li><a href="products.html">balls</a></li>
-								<li><a href="products.html">sales</a></li>
+                                {% for cate in cates %}
+                                    <li><a href="{% url 'goods:showall' cid %}">{{ cate.name }}</a></li>
+                                {% endfor %}
 							</ul>
 						</li>
-						<li><a href="product_list.html">BIKES</a>
-							<ul>
-								<li><a href="product_list.html">Accessories</a></li>
-								<li><a href="product_list.html">helmets</a></li>
-								<li><a href="product_list.html">Footwear</a></li>
-								<li><a href="product_list.html">spets</a></li>
-								<li><a href="product_list.html">arms</a></li>
-								<li><a href="product_list.html">sales</a></li>
-							</ul>
+{#						<li><a href="products.html" class="root">健身器材</a>#}
+{#							<ul>#}
+{#                                <li><a href="{% url 'goods:showall' %}">跑步机</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">健身车</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">力量器械</a></li>#}
+{#								<li><a href="{% url 'goods:showall' %}">按摩椅</a></li>#}
+{#							</ul>#}
+{#						</li>#}
+						<li><a href="{% url 'show:article' %}">ESSAY</a>
+{#							<ul>#}
+{#								<li><a href="product_list.html">Accessories</a></li>#}
+{#								<li><a href="product_list.html">helmets</a></li>#}
+{#								<li><a href="product_list.html">Footwear</a></li>#}
+{#								<li><a href="product_list.html">spets</a></li>#}
+{#								<li><a href="product_list.html">arms</a></li>#}
+{#								<li><a href="product_list.html">sales</a></li>#}
+{#							</ul>#}
 						</li>
 						<li><a href="products.html">GOLF</a>
 							<ul>
@@ -110,81 +136,36 @@
 			</div>
 		</div>
 	</div>
-	<!-- header-section-ends -->
-	<!-- content-section-starts -->
-	<div class="content">
-		
-		<div class="dreamcrub" style="margin-bottom: 0px">
-		<div class="container">
-			   	 <ul class="breadcrumbs">
-                    <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
-                       <span>&gt;</span>
-                    </li>
-                    <li style="font-size: 2rem">
-                       register
-                    </li>
-                </ul>
-                <ul class="previous">
-                	<li style="font-size: 2rem"><a href="index.html">Back to Previous Page</a></li>
-                </ul>
-{#                <div class="clearfix"></div>#}
-			   </div>
-			   </div>
-			   <div class="container">
-{#		<div class="main-register-form">#}
-		  <div class="register" style="background-color: #f5e79e">
-				 <div class="register-top-grid" >
-					<h3 style="align-content: center;font-size: 4rem" align="center">Welcome To Register</h3>
-                 </div>
-                     <form method="post">
-                        {% csrf_token %}
+{% block content %}
 
-					 <div align="center">
-						<span style="font-size:2rem;">UserName<label>*</label></span><br/>
-						<input type="text" name="username" placeholder="username">
-					 </div>
-                        <br/><br/>
-                     <div align="center">
-                             <span>Password<label>*</label></span><br/>
-                             <input type="password" name="password" placeholder="password">
-                     </div>
-                     <br/><br/>
-                     <div align="center">
-                             <span>RePassword<label>*</label></span><br/>
-                             <input type="password" name="repassword" placeholder="repassword">
-                     </div>
-                     <br/><br/>
-					 <div align="center">
-						 <span>Email<label>*</label></span><br/>
-						 <input type="text" name="email" placeholder="email">
-					 </div>
-                     <br/><br/>
-{#					 <div class="clearfix"> </div>#}
-{#					   <a class="news-letter" href="#">#}
-{#						 <label class="checkbox"><input type="checkbox" name="checkbox" checked="">Sign Up for Newsletter</label>#}
-{#					   </a>#}
-{#					 </div>#}
-{#				     <div class="register-bottom-grid">#}
-{#						    <h3>LOGIN INFORMATION</h3>#}
-
-{#					 </div>#}
-{#				</form>#}
-				<div class="clearfix"> </div>
-				<div class="register-but" align="center">
-					   <input type="submit" value="register">
-					   <div class="clearfix"> </div>
-                </div>
-              </form>
-            <h3 style="color: red">{{ errormsg }}</h3>
-{#		   </div>#}
-	    </div>
-</div>
-		</div>
-	</div>
+{% endblock %}
+                <div class="shipping">
+					<div class="shipping-section-grid">
+						<div class="col-md-7 shipping-left-grid">
+							<h3>free shipping</h3>
+							<div class="icon">
+								<img src="{% static 'images/shipping-icon.png' %}" alt="" />
+							</div>
+							<div class="icon-text">
+								<p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem   feworem ipsum is dolor sit sud spendi desig sunpoen controey   feworem ipsum is dolor sit suspendi desig.</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-md-5 shipping-right-grid">
+							<h3>news letter</h3>
+							<div class="news-search-box">
+                         <form>
+                         <input type="text" class="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                          <input type="submit" value>
+	                    </form>
+	                   </div>
+				    </div>
+					<div class="clearfix"></div>
+					</div>
+			</div>
 	<!-- content-section-ends -->
 	<!-- footer-section-starts -->
-	<div class="footer"> 
+	<div class="footer">
 		<div class="container">
 			<div class="col-md-3 shop">
 				<h3>shop</h3>

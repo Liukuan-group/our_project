@@ -2,7 +2,7 @@
 <html>
 {% load staticfiles %}
 <head>
-<title>Register</title>
+<title>Article</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -39,8 +39,8 @@
 				</div>
 				<div class="login-section">
 					<ul>
-						<li><a href="{% url 'user:login' %}">Login</a>  </li> |
-						<li><a href="{% url 'user:register' %}">Register</a> </li>
+						<li><a href="login.html">Login</a>  </li> |
+						<li><a href="register.html">Register</a> </li>
 					</ul>
 				</div>
 				<!-- start search-->
@@ -66,14 +66,14 @@
 		<div class="bottom-header">
 			<div class="container">
 				<div class="logo">
-					<a href="index.html"><h1>sporty</h1></a>
+					<a href="index.html"><h1>article</h1></a>
 				</div>
 				<div class="header_bottom_right">
 					<div class="h_menu4"><!-- start h_menu4 -->
 					<a class="toggleMenu" href="#">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="/">首页</a></li>
-						<li><a href="products.html" class="root">健身器材</a>
+						<li class="active"><a href="index.html">HOME</a></li>
+						<li><a href="products.html" class="root">FOOTBALL</a>
 							<ul>
 								<li><a href="products.html">Accessories</a></li>
 								<li><a href="products.html">Footwear</a></li>
@@ -83,14 +83,13 @@
 								<li><a href="products.html">sales</a></li>
 							</ul>
 						</li>
-						<li><a href="product_list.html">BIKES</a>
+						<li><a href="bikes.html">essay</a>
 							<ul>
-								<li><a href="product_list.html">Accessories</a></li>
-								<li><a href="product_list.html">helmets</a></li>
-								<li><a href="product_list.html">Footwear</a></li>
-								<li><a href="product_list.html">spets</a></li>
-								<li><a href="product_list.html">arms</a></li>
-								<li><a href="product_list.html">sales</a></li>
+                                {% for title in essaies %}
+                                    {% if title.id <= 4 %}
+                                        <li><a href="bikes.html">{{ title.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
 							</ul>
 						</li>
 						<li><a href="products.html">GOLF</a>
@@ -112,76 +111,121 @@
 	</div>
 	<!-- header-section-ends -->
 	<!-- content-section-starts -->
-	<div class="content">
-		
-		<div class="dreamcrub" style="margin-bottom: 0px">
-		<div class="container">
+
+<div class="dreamcrub">
+<div class="container">
 			   	 <ul class="breadcrumbs">
                     <li class="home">
                        <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                        <span>&gt;</span>
                     </li>
-                    <li style="font-size: 2rem">
-                       register
-                    </li>
+                    <li>
+                       essay
+                    </li>&nbsp;
+                       <span>&gt;</span>
+					<li>title</li>
                 </ul>
                 <ul class="previous">
-                	<li style="font-size: 2rem"><a href="index.html">Back to Previous Page</a></li>
+                	<li><a href="index.html">Back to Previous Page</a></li>
                 </ul>
-{#                <div class="clearfix"></div>#}
+                <div class="clearfix"></div>
 			   </div>
 			   </div>
 			   <div class="container">
-{#		<div class="main-register-form">#}
-		  <div class="register" style="background-color: #f5e79e">
-				 <div class="register-top-grid" >
-					<h3 style="align-content: center;font-size: 4rem" align="center">Welcome To Register</h3>
-                 </div>
-                     <form method="post">
-                        {% csrf_token %}
+<div class="biseller-info">
+<h3 class="new-models">Article Title</h3>
+			<hr id="flexiselDemo3">
+                {% for i in pager %}
+{#                    {% if i.id < 9 %}#}
+                        <div class="title">
+                            <img src="{{ i.image }}">
+                            <a href="{% url 'show:content' i.id %} ">{{ i.title }}<hr></a>
+                        </div>
 
-					 <div align="center">
-						<span style="font-size:2rem;">UserName<label>*</label></span><br/>
-						<input type="text" name="username" placeholder="username">
-					 </div>
-                        <br/><br/>
-                     <div align="center">
-                             <span>Password<label>*</label></span><br/>
-                             <input type="password" name="password" placeholder="password">
-                     </div>
-                     <br/><br/>
-                     <div align="center">
-                             <span>RePassword<label>*</label></span><br/>
-                             <input type="password" name="repassword" placeholder="repassword">
-                     </div>
-                     <br/><br/>
-					 <div align="center">
-						 <span>Email<label>*</label></span><br/>
-						 <input type="text" name="email" placeholder="email">
-					 </div>
-                     <br/><br/>
-{#					 <div class="clearfix"> </div>#}
-{#					   <a class="news-letter" href="#">#}
-{#						 <label class="checkbox"><input type="checkbox" name="checkbox" checked="">Sign Up for Newsletter</label>#}
-{#					   </a>#}
-{#					 </div>#}
-{#				     <div class="register-bottom-grid">#}
-{#						    <h3>LOGIN INFORMATION</h3>#}
-
-{#					 </div>#}
-{#				</form>#}
-				<div class="clearfix"> </div>
-				<div class="register-but" align="center">
-					   <input type="submit" value="register">
-					   <div class="clearfix"> </div>
-                </div>
-              </form>
-            <h3 style="color: red">{{ errormsg }}</h3>
-{#		   </div>#}
-	    </div>
+{#                    {% endif %}#}
+                {% endfor %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+{#                首页 {% for page_num in paginator.page_range%}#}
+{#                {{ page_num }}#}
+{#            {% endfor %}#}
+                {% if page.has_previous %}
+                    上一页
+{#                    {% else %}#}
+{#                    上一页#}
+                {% endif %}
+                    {{ page }}/{{ page_info.num_pages }}
+                {% if page.has_next %}
+                    下一页
+{#                {% else %}#}
+{#                    下一页#}
+                {% endif %}
+                末页
+{#                <li>#}
+{#                    <a {% if pager.has_previous %}#}
+{#                        href="/?cid={{ cate_id }}&page={{ pager.previous_page_number }}"#}
+{#                    {% endif %} aria-label="Previous">#}
+{#                        <span aria-hidden="true">&laquo;</span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                {% for page in paginator.page_range %}#}
+{#                    <li {% if page == pager.number %}class="active"{% endif %}>#}
+{#                        <a {% if page != pager.number %}href="/?cid={{ cate_id }}&page={{ page }}"{% endif %} >{{ page }}</a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#                <li>#}
+{#                    <a {% if pager.has_next %}#}
+{#                        href="/?cid={{ cate_id }}&page={{ pager.next_page_number }}"#}
+{#                    {% endif %} aria-label="Next">#}
+{#                        <span aria-hidden="true">&raquo;</span>#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        </nav>
 </div>
-		</div>
-	</div>
+
+
+			<script type="text/javascript">
+
+			   </script>
+			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
+			
+				<div class="best-seller">
+				
+					<div class="biseller-info">
+
+			</div>
+			<script type="text/javascript">
+
+			   </script>
+			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
+			
+			<div class="clearfix"></div>
+<div class="shipping">
+					<div class="shipping-section-grid">
+						<div class="col-md-7 shipping-left-grid">
+							<h3>free shipping</h3>
+							<div class="icon">
+								<img src="{% static 'images/shipping-icon.png' %}" alt="" />
+							</div>
+							<div class="icon-text">
+								<p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem   feworem ipsum is dolor sit sud spendi desig sunpoen controey   feworem ipsum is dolor sit suspendi desig.</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-md-5 shipping-right-grid">
+							<h3>news letter</h3>
+							<div class="news-search-box">
+                         <form> 
+                         <input type="text" class="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                          <input type="submit" value>
+	                    </form> 
+	                   </div>
+				    </div>
+					<div class="clearfix"></div>
+					</div>
+			</div>
+			</div>
 	<!-- content-section-ends -->
 	<!-- footer-section-starts -->
 	<div class="footer"> 

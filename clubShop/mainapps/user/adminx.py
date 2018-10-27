@@ -2,7 +2,7 @@ import xadmin
 from xadmin import views
 from user.models import User, Address
 from order.models import OrderInfo
-from goods.models import Goods
+from goods.models import Goods, Category
 from show.models import article, Class
 
 # Register your models here.
@@ -51,6 +51,10 @@ class GoodsAdmin():
     list_display = ['name', 'desc', 'price', 'image', 'status']
 
 
+class CategoryAdmin():
+    list_display = ['name']
+
+
 class ArticleAdmin():
     list_display = ['title', 'content', 'date', 'image']
 
@@ -66,3 +70,4 @@ xadmin.site.register(OrderInfo, OrderInfoAdmin)
 xadmin.site.register(Goods, GoodsAdmin)
 xadmin.site.register(article, ArticleAdmin)
 xadmin.site.register(Class, ClassAdmin)
+xadmin.site.register(Category, CategoryAdmin)
