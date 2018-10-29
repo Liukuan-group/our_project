@@ -35,7 +35,7 @@
 		<div class="top-header">
 			<div class="container">
 				<div class="header-left">
-					<p>Take and Extra 20% OFF with order upto $99</p>
+					<p>For life , For health</p>
 				</div>
 				<div class="login-section">
 					<ul style="color: #0f0f0f">
@@ -77,35 +77,52 @@
 					<div class="h_menu4"><!-- start h_menu4 -->
 					<a class="toggleMenu" href="#">Menu</a>
 					<ul class="nav">
-						<li class="active"><a href="/">首页</a></li>
-						<li><a href="../static/products.html" class="root">健身器材</a>
-							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">t-shirts</a></li>
-								<li><a href="../static/products.html">sporty dresses</a></li>
-								<li><a href="../static/products.html">balls</a></li>
-								<li><a href="../static/products.html">sales</a></li>
-							</ul>
-						</li>
-						<li><a href="product_list.html">BIKES</a>
-							<ul>
-								<li><a href="product_list.html">Accessories</a></li>
-								<li><a href="product_list.html">helmets</a></li>
-								<li><a href="product_list.html">Footwear</a></li>
-								<li><a href="product_list.html">spets</a></li>
-								<li><a href="product_list.html">arms</a></li>
-								<li><a href="product_list.html">sales</a></li>
-							</ul>
-						</li>
-						<li><a href="../static/products.html">GOLF</a>
-							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">Apparel</a></li>
-							</ul>
-						</li>
-							<li><a>CONTACT</a></li>
+						 <li class="active"><a href="/">首页</a></li>
+                        <li><a href="" class="root">健身器材</a>
+                            <ul>
+                                {% for cate in cates %}
+                                    <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+						<li><a href="{% url 'show:articles' %}">文章</a>
+                            <ul>
+                                {% for title in essaies %}
+                                    {% if title.id <= 4 %}
+                                        <li><a href="{% url 'show:content' title.id %}">{{ title.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+						<li><a href="{% url 'show:classes' %}">课程</a>
+                            <ul>
+                                {% for c in all_class %}
+                                    {% if c.id <= 4 %}
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+							<li><a>我的</a>
+                            <ul>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的账户</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="/user/address/{{ request.session.user_login }}/"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的收货地址</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的订单</a></li>
+                            </ul>
+                        </li>
 						</ul>
 						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 				</div>
@@ -131,19 +148,33 @@
                     </li>
                 </ul>
                 <ul class="previous">
-                	<li style="font-size: 2rem"><a href="index.html">Back to Previous Page</a></li>
+                	<li style="font-size: 2rem"><a href="index.html">回到首页</a></li>
                 </ul>
 {#                <div class="clearfix"></div>#}
 			   </div>
 			   </div>
 			   <div class="container" style="align-content: center" align="center">
-               <ol>
+               <h3><span style="color: orange">{{ request.session.user_login }}</span>的收货地址</h3>
+               <table class="table">
+               <tr><th>收件人</th>
+                   <th>联系电话</th>
+                   <th>收货地址</th>
+                   <th>邮政编码</th>
+                   <th>修改操作</th>
+                   <th>删除操作</th>
+               </tr>
                 {% for address in address_list %}
-                <li>{{ address.receiver }}&nbsp;&nbsp;&nbsp;{{ address.phone }}&nbsp;&nbsp;&nbsp;{{ address.addr }}&nbsp;&nbsp;&nbsp;{{ address.code }}</li>
-                <br/>
+                <tr><td>{{ address.receiver }}</td>
+                    <td>{{ address.phone }}</td>
+                    <td>{{ address.addr }}</td>
+                    <td>{{ address.code }}</td>
+                &nbsp;&nbsp;<td><a href="/user/update/{{ request.session.user_login }}/{{ address.id }}/"><input type="button" value="修改"></a></td>
+                    <td><a href="/user/delete/{{ request.session.user_login }}/{{ address.id }}/"><input type="button" value="删除"></a></td></tr>
                 {% endfor %}
-                <a href="/user/add/{{ request.session.user_login }}/"><input type="button" value="添加收货地址"></a>
-               </ol>
+
+               </table>
+                <a href="/user/add/{{ request.session.user_login }}/" style="margin-bottom: 10px"><input type="button" value="添加收货地址"></a>
+                <br/>
 </div>
 		</div>
 	</div>
@@ -197,7 +228,7 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="copy-rights">
-				<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+				<p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
 			</div>
 		</div>
 	</div>

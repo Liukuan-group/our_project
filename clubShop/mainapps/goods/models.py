@@ -36,4 +36,25 @@ class Goods(BaseModel):
         verbose_name_plural = verbose_name
 
 
+class smallImg(BaseModel):
+    smallPic = models.CharField(verbose_name='商品小图', max_length=600)
+
+
+    class Meta:
+        db_table = 't_spic'
+        verbose_name = '商品小图'
+        verbose_name_plural = verbose_name
+
+
+class bigImg(BaseModel):
+    bigPic = models.CharField(verbose_name='商品大图', max_length=600)
+    smallimg = models.OneToOneField('smallImg', on_delete=models.CASCADE, verbose_name='小图')
+    product = models.OneToOneField('Goods', on_delete=models.CASCADE, verbose_name='商品')
+
+
+    class Meta:
+        db_table = 't_bpic'
+        verbose_name = '商品大图'
+        verbose_name_plural = verbose_name
+
 

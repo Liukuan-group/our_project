@@ -2,265 +2,293 @@
 <html>
 {% load staticfiles %}
 <head>
-<title>Article</title>
-<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<!-- Custom Theme files -->
-<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
-<!-- Custom Theme files -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--webfont-->
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
-<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
-<script src="{% static 'js/responsiveslides.min.js' %}"></script>
-<script>
-    $(function () {
-      $("#slider").responsiveSlides({
-      	auto: true,
-      	nav: true,
-      	speed: 500,
-        namespace: "callbacks",
-        pager: true,
-      });
-    });
-</script>
+    <title>Article</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!--webfont-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
+    <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+    <script src="{% static 'js/responsiveslides.min.js' %}"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+        });
+    </script>
 
 </head>
 <body>
-    <!-- header-section-starts -->
-	<div class="header">
-		<div class="top-header">
-			<div class="container">
-				<div class="header-left">
-					<p>Take and Extra 20% OFF with order upto $99</p>
-				</div>
-				<div class="login-section">
-					<ul style="color: #0f0f0f">
+<!-- header-section-starts -->
+<div class="header">
+    <div class="top-header">
+        <div class="container">
+            <div class="header-left">
+                <p>For life , For health</p>
+            </div>
+            <div class="login-section">
+                <ul style="color: #0f0f0f">
                     {% if request.session.user_login %}
-						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
-						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
-                        {% else %}
-						<li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a>  </li> |
-						<li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a> </li>
+                        <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
+                        <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
+                    {% else %}
+                        <li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a></li> |
+                        <li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a></li>
                     {% endif %}
                 </ul>
-				</div>
-				<!-- start search-->
-				    <div class="search-box">
-					    <div id="sb-search" class="sb-search">
-							<form>
-								<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
-								<input class="sb-search-submit" type="submit" value="">
-								<span class="sb-icon-search"> </span>
-							</form>
-						</div>
-				    </div>
-					<!-- search-scripts -->
-					<script src="{% static 'js/classie.js' %}"></script>
-					<script src="{% static 'js/uisearch.js' %}"></script>
-						<script>
-							new UISearch( document.getElementById( 'sb-search' ) );
-						</script>
-					<!-- //search-scripts -->
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		<div class="bottom-header">
-			<div class="container">
-				<div class="logo">
-					<a href="index.html"><h1>article</h1></a>
-				</div>
-				<div class="header_bottom_right">
-					<div class="h_menu4"><!-- start h_menu4 -->
-					<a class="toggleMenu" href="#">Menu</a>
-					<ul class="nav">
-						<li class="active"><a href="index.html">HOME</a></li>
-						<li><a href="../static/products.html" class="root">FOOTBALL</a>
-							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">t-shirts</a></li>
-								<li><a href="../static/products.html">sporty dresses</a></li>
-								<li><a href="../static/products.html">balls</a></li>
-								<li><a href="../static/products.html">sales</a></li>
-							</ul>
-						</li>
-						<li><a href="{% url 'show:articles' %}">essay</a>
-							<ul>
+            </div>
+            <!-- start search-->
+            <div class="search-box">
+                <div id="sb-search" class="sb-search">
+                    <form>
+                        <input class="sb-search-input" placeholder="Enter your search term..." type="search"
+                               name="search" id="search">
+                        <input class="sb-search-submit" type="submit" value="">
+                        <span class="sb-icon-search"> </span>
+                    </form>
+                </div>
+            </div>
+            <!-- search-scripts -->
+            <script src="{% static 'js/classie.js' %}"></script>
+            <script src="{% static 'js/uisearch.js' %}"></script>
+            <script>
+                new UISearch(document.getElementById('sb-search'));
+            </script>
+            <!-- //search-scripts -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="bottom-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>article</h1></a>
+            </div>
+            <div class="header_bottom_right">
+                <div class="h_menu4">
+                    <a class="toggleMenu" href="">Menu</a>
+                    <ul class="nav">
+                        <li class="active"><a href="/">首页</a></li>
+                        <li><a href="{% url 'goods:showall' 1 %}" class="root">健身器材</a>
+                            <ul>
+                                {% for cate in cates %}
+                                    <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'show:articles' %}">文章</a>
+                            <ul>
                                 {% for title in essaies %}
                                     {% if title.id <= 4 %}
                                         <li><a href="{% url 'show:content' title.id %}">{{ title.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
-							</ul>
-						</li>
-						<li><a href="../static/products.html">GOLF</a>
-							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">Apparel</a></li>
-							</ul>
-						</li>
-							<li><a href="contact.html">CONTACT</a></li>
-						</ul>
-						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
-				</div>
-				<!-- end h_menu4 -->
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- header-section-ends -->
-	<!-- content-section-starts -->
+                            </ul>
+                        </li>
+
+                        <li><a href="{% url 'show:classes' %}">课程</a>
+                            <ul>
+                                {% for c in all_class %}
+                                    {% if c.id <= 4 %}
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+                        <li><a>我的</a>
+                            <ul>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的账户</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="/user/address/{{ request.session.user_login }}/"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的收货地址</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的订单</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
+                </div>
+                <!-- end h_menu4 -->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header-section-ends -->
+<!-- content-section-starts -->
 
 <div class="dreamcrub">
-<div class="container">
-			   	 <ul class="breadcrumbs">
-                    <li class="home">
-                       <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
-                       <span>&gt;</span>
-                    </li>
-                    <a href="{% url 'show:articles' %}">
-                        <li>essay</li>
-                    </a>
-                       <span>&gt;</span>
-					<li>title</li>
-                </ul>
-                <ul class="previous">
-                	<li><a href="index.html">Back to Previous Page</a></li>
-                </ul>
-{#                <div class="clearfix"></div>#}
-			   </div>
-			   </div>
-			   <div class="container">
-
-<div class="biseller-info">
-{% block content %}
-<h3 class="new-models">Article Title</h3>
-
-<hr id="flexiselDemo3">
-    {% for i in page %}
-        <div class="title">
-            <img src="{{ i.image }}">
-            <a href="{% url 'show:content' i.id %} ">{{ i.title }}<hr></a>
-        </div>
-    {% endfor %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            {% if page.has_previous %}
-                <a href="{% url 'show:article' page.previous_page_number %}">上一页</a>
-            {% endif %}
-            {{ pag }}/{{ page_info.num_pages }}
-            {% if page.has_next %}
-                <a href="{% url 'show:article' page.next_page_number %}">下一页</a>
-            {% endif %}
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="home">
+                <a href="index.html" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
+                <span>&gt;</span>
+            </li>
+            <a href="{% url 'show:articles' %}">
+                <li>文章</li>
+            </a>
+            <span>&gt;</span>
+            <li>标题</li>
         </ul>
-    </nav>
+        <ul class="previous">
+            <li><a href="index.html">回到首页</a></li>
+        </ul>
+        {#                <div class="clearfix"></div>#}
+    </div>
 </div>
-{% endblock %}
+<div class="container">
+
+    <div class="biseller-info">
+        {% block content %}
+            <h3 class="new-models">Article Title</h3>
+
+            <hr id="flexiselDemo3">
+            {% for i in page %}
+                <div class="title">
+                    <img src="{{ i.image }}">
+                    <a href="{% url 'show:content' i.id %} ">{{ i.title }}
+                        <hr>
+                    </a>
+                </div>
+            {% endfor %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if page.has_previous %}
+                        <a href="{% url 'show:article' page.previous_page_number %}">上一页</a>
+                    {% endif %}
+                    {{ pag }}/{{ page_info.num_pages }}
+                    {% if page.has_next %}
+                        <a href="{% url 'show:article' page.next_page_number %}">下一页</a>
+                    {% endif %}
+                </ul>
+            </nav>
+            </div>
+        {% endblock %}
 
 
+    <script type="text/javascript">
 
+    </script>
+    <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
 
-			<script type="text/javascript">
+    <div class="best-seller">
 
-			   </script>
-			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-			
-				<div class="best-seller">
-				
-					<div class="biseller-info">
+        <div class="biseller-info">
 
-			</div>
-			<script type="text/javascript">
+        </div>
+        <script type="text/javascript">
 
-			   </script>
-			   <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-			
-			<div class="clearfix"></div>
-<div class="shipping">
-					<div class="shipping-section-grid">
-						<div class="col-md-7 shipping-left-grid">
-							<h3>free shipping</h3>
-							<div class="icon">
-								<img src="{% static 'images/shipping-icon.png' %}" alt="" />
-							</div>
-							<div class="icon-text">
-								<p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem   feworem ipsum is dolor sit sud spendi desig sunpoen controey   feworem ipsum is dolor sit suspendi desig.</p>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="col-md-5 shipping-right-grid">
-							<h3>news letter</h3>
-							<div class="news-search-box">
-                         <form> 
-                         <input type="text" class="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-                          <input type="submit" value>
-	                    </form> 
-	                   </div>
-				    </div>
-					<div class="clearfix"></div>
-					</div>
-			</div>
-			</div>
-	<!-- content-section-ends -->
-	<!-- footer-section-starts -->
-	<div class="footer"> 
-		<div class="container">
-			<div class="col-md-3 shop">
-				<h3>shop</h3>
-				<ul>
-					<li><a href="#">new arrivals</a></li>
-					<li><a href="#">men</a></li>
-					<li><a href="#">accessories</a></li>
-					<li><a href="#">kids</a></li>
-					<li><a href="#">brands</a></li>
-					<li><a href="#">trends</a></li>
-					<li><a href="#">sale</a></li>
-					<li><a href="#">style videos</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 shop">
-				<h3>help</h3>
-				<ul>
-					<li><a href="#">frequently asked questions</a></li>
-					<li><a href="#">women</a></li>
-					<li><a href="#">style videos</a></li>
-					<li><a href="#">sale</a></li>
-					<li><a href="#">trends</a></li>
-					<li><a href="#">style videos</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 shop">
-				<h3>account</h3>
-				<ul>
-					<li><a href="#">my sports</a></li>
-					<li><a href="#">my orders</a></li>
-					<li><a href="#">my shopping bag</a></li>
-					<li><a href="#">my wishlist</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 shop">
-				<h3>popular</h3>
-				<ul>
-					<li><a href="#">accessories</a></li>
-					<li><a href="#">brands</a></li>
-					<li><a href="#">frequently asked questions</a></li>
-					<li><a href="#">style videos</a></li>
-					<li><a href="#">women</a></li>
-					<li><a href="#">my orders</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-			<div class="copy-rights">
-				<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-			</div>
-		</div>
-	</div>
-	<!-- footer-section-ends -->
+        </script>
+        <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
+
+        <div class="clearfix"></div>
+        <div class="shipping">
+            <div class="shipping-section-grid">
+                <div class="col-md-7 shipping-left-grid">
+                    <h3>free shipping</h3>
+                    <div class="icon">
+                        <img src="{% static 'images/shipping-icon.png' %}" alt=""/>
+                    </div>
+                    <div class="icon-text">
+                        <p>　　以质量求生存，以信誉促发展。坚持团结稳定，齐心协力干事业。我与公司荣辱与共，公司与我共同发展。</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-5 shipping-right-grid">
+                    <h3>news letter</h3>
+                    <div class="news-search-box">
+                        <form>
+                            <input type="text" class="text" value="" onfocus="this.value = '';"
+                                   onblur="if (this.value == '') {this.value = '';}">
+                            <input type="submit" value>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!-- content-section-ends -->
+    <!-- footer-section-starts -->
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3 shop">
+                <h3>shop</h3>
+                <ul>
+                    <li><a href="#">new arrivals</a></li>
+                    <li><a href="#">men</a></li>
+                    <li><a href="#">accessories</a></li>
+                    <li><a href="#">kids</a></li>
+                    <li><a href="#">brands</a></li>
+                    <li><a href="#">trends</a></li>
+                    <li><a href="#">sale</a></li>
+                    <li><a href="#">style videos</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 shop">
+                <h3>help</h3>
+                <ul>
+                    <li><a href="#">frequently asked questions</a></li>
+                    <li><a href="#">women</a></li>
+                    <li><a href="#">style videos</a></li>
+                    <li><a href="#">sale</a></li>
+                    <li><a href="#">trends</a></li>
+                    <li><a href="#">style videos</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 shop">
+                <h3>account</h3>
+                <ul>
+                    <li><a href="#">my sports</a></li>
+                    <li><a href="#">my orders</a></li>
+                    <li><a href="#">my shopping bag</a></li>
+                    <li><a href="#">my wishlist</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 shop">
+                <h3>popular</h3>
+                <ul>
+                    <li><a href="#">accessories</a></li>
+                    <li><a href="#">brands</a></li>
+                    <li><a href="#">frequently asked questions</a></li>
+                    <li><a href="#">style videos</a></li>
+                    <li><a href="#">women</a></li>
+                    <li><a href="#">my orders</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="copy-rights">
+                <p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
+            </div>
+        </div>
+    </div>
+    <!-- footer-section-ends -->
 </body>
 </html>

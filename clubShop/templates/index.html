@@ -66,11 +66,11 @@
             <div class="login-section">
                 <ul style="color: #0f0f0f">
                     {% if request.session.user_login %}
-						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
-						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
-                        {% else %}
-						<li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a>  </li> |
-						<li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a> </li>
+                        <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
+                        <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
+                    {% else %}
+                        <li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a></li> |
+                        <li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -105,23 +105,15 @@
                 <div class="h_menu4">
                     <a class="toggleMenu" href="">Menu</a>
                     <ul class="nav">
-                        <li class="active"><a href="">首页</a></li>
-                        <li><a href="../static/products.html" class="root">健身器材</a>
+                        <li class="active"><a href="/">首页</a></li>
+                        <li><a href="{% url 'goods:showall' 1 %}" class="root">健身器材</a>
                             <ul>
                                 {% for cate in cates %}
                                     <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
-                        {#						<li><a href="products.html" class="root">健身器材</a>#}
-                        {#							<ul>#}
-                        {#                                <li><a href="{% url 'goods:showall' %}">跑步机</a></li>#}
-                        {#								<li><a href="{% url 'goods:showall' %}">健身车</a></li>#}
-                        {#								<li><a href="{% url 'goods:showall' %}">力量器械</a></li>#}
-                        {#								<li><a href="{% url 'goods:showall' %}">按摩椅</a></li>#}
-                        {#							</ul>#}
-                        {#						</li>#}
-                        <li><a href="{% url 'show:articles' %}">健身知识</a>
+                        <li><a href="{% url 'show:articles' %}">文章</a>
                             <ul>
                                 {% for title in essaies %}
                                     {% if title.id <= 4 %}
@@ -130,41 +122,36 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        {#							<ul>#}
-                        {#								<li><a href="product_list.html">Accessories</a></li>#}
-                        {#								<li><a href="product_list.html">helmets</a></li>#}
-                        {#								<li><a href="product_list.html">Footwear</a></li>#}
-                        {#								<li><a href="product_list.html">spets</a></li>#}
-                        {#								<li><a href="product_list.html">arms</a></li>#}
-                        {#								<li><a href="product_list.html">sales</a></li>#}
-                        {#							</ul>#}
 
-                        <li><a href="../static/products.html">GOLF</a>
+                        <li><a href="{% url 'show:classes' %}">课程</a>
                             <ul>
-                                <li><a href="../static/products.html">Accessories</a></li>
-                                <li><a href="../static/products.html">Footwear</a></li>
-                                <li><a href="../static/products.html">Apparel</a></li>
+                                {% for c in all_class %}
+                                    {% if c.id <= 4 %}
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                    {% endif %}
+                                {% endfor %}
+
                             </ul>
                         </li>
-                        <li><a>个人中心</a>
-                                <ul>
-								<li><a {% if request.session.user_login %}
-								    href="#"
-                                    {% else %}
+                        <li><a>我的</a>
+                            <ul>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
                                     href="{% url 'user:login' %}"
-								{% endif %}>我的账户</a></li>
-								<li><a {% if request.session.user_login %}
-								    href="/user/address/{{ request.session.user_login }}/"
-                                    {% else %}
+                                {% endif %}>我的账户</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="/user/address/{{ request.session.user_login }}/"
+                                {% else %}
                                     href="{% url 'user:login' %}"
-								{% endif %}>我的收货地址</a></li>
-								<li><a {% if request.session.user_login %}
-								    href="#"
-                                    {% else %}
+                                {% endif %}>我的收货地址</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
                                     href="{% url 'user:login' %}"
-								{% endif %}>我的订单</a></li>
-							    </ul>
-                            </li>
+                                {% endif %}>我的订单</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
                 </div>
@@ -183,9 +170,9 @@
                 <img src="{% static 'images/main.jpg' %}" alt=""/>
             </div>
             <div class="col-md-4 sub">
-                <img src="{% static 'images/side-img.jpg' %}" alt=""/>
+                <img src="{{ only_product.bigimg.smallimg.smallPic.0 }}" style="height: 320px" alt=""/>
                 <div class="add-to-cart">
-                    <p>Lorem ipsum dolor</p>
+                    <p>{{ only_product.name }}</p>
                     <form action="" class="sky-form">
                         <fieldset>
                             <section>
@@ -205,7 +192,7 @@
                             </section>
                         </fieldset>
                     </form>
-                    <span>$91.00</span>
+                    <span>${{ only_product.price }}</span>
                     <button class="cart-button">
                         <i class="white-cart"></i>
                         <span>| Add to Cart</span>
@@ -252,26 +239,28 @@
                     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
                         <ul class="tab_img">
                             {% for hot_good in hot_goods_all %}
-                                <li style="margin: 10px">
-                                    <div class="view view-first">
-                                        <img src="{{ hot_good.image }}" class="img-responsive" alt=""/>
-                                        <div class="info1"><h4>hot</h4></div>
-                                        <div class="mask">
+                                <a href="{% url 'goods:detail' hot_good.id %}">
+                                    <li style="margin: 10px">
+                                        <div class="view view-first">
+                                            <img src="{{ hot_good.image }}" class="img-responsive" alt=""/>
+                                            <div class="info1"><h4>hot</h4></div>
+                                            <div class="mask">
+
+                                            </div>
+                                            <div class="tab_desc">
+                                                <div class="tab_desc_1">
+                                                    <h5>{{ hot_good.name }}</h5>
+                                                </div>
+                                                <div class="tab_desc_2">
+                                                    <p>{{ hot_good.price }}</p>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
 
                                         </div>
-                                        <div class="tab_desc">
-                                            <div class="tab_desc_1">
-                                                <h5>{{ hot_good.name }}</h5>
-                                            </div>
-                                            <div class="tab_desc_2">
-                                                <p>{{ hot_good.price }}</p>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-
-                                    </div>
-                                    <img src="{{ hot_good.img }}" alt=""/>
-                                </li>
+                                        <img src="{{ hot_good.img }}" alt=""/>
+                                    </li>
+                                </a>
                             {% endfor %}
 
                             <div class="clearfix"></div>
@@ -280,85 +269,27 @@
                     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
                         <ul class="tab_img">
                             {% for new_good in new_goods_all %}
-                                <li  style="margin: 10px">
-                                    <div class="view view-first">
-                                        <img src="{{ new_good.image }}" class="img-responsive" alt=""/>
-                                        <div class="mask">
-                                            <div class="info1"></div>
-                                        </div>
-                                        <div class="tab_desc">
-                                            <div class="tab_desc_1">
-                                                <h5>{{ new_good.name }}</h5>
+                                <a href="{% url 'goods:detail' new_good.id %}">
+                                    <li style="margin: 10px">
+                                        <div class="view view-first">
+                                            <img src="{{ new_good.image }}" class="img-responsive" alt=""/>
+                                            <div class="mask">
+                                                <div class="info1"></div>
                                             </div>
-                                            <div class="tab_desc_2">
-                                                <p>{{ new_good.price }}</p>
+                                            <div class="tab_desc">
+                                                <div class="tab_desc_1">
+                                                    <h5>{{ new_good.name }}</h5>
+                                                </div>
+                                                <div class="tab_desc_2">
+                                                    <p>{{ new_good.price }}</p>
+                                                </div>
+                                                <div class="clearfix"></div>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
-                                    </div>
-                                    <img src="{% static 'images/rating.png' %}" alt=""/>
-                                </li>
+                                        <img src="{% static 'images/rating.png' %}" alt=""/>
+                                    </li>
+                                </a>
                             {% endfor %}
-
-                            {#										<li>#}
-                            {#										  <div class="view view-first">#}
-                            {#					   		  			   <img src="{% static 'images/pic7.jpg' %}" class="img-responsive" alt=""/>#}
-                            {#											 <div class="mask">#}
-                            {#						                        <div class="info1"> </div>#}
-                            {#								              </div>#}
-                            {#								              <div class="tab_desc">#}
-                            {#											  <div class="tab_desc_1">#}
-                            {#												  <h5>Lorem ipsum dolor</h5>#}
-                            {#											  </div>#}
-                            {#											  <div class="tab_desc_2">#}
-                            {#												  <p>$2001</p>#}
-                            {#											  </div>#}
-                            {#											  <div class="clearfix"></div>#}
-                            {#											  </div>#}
-                            {#										  </div>#}
-                            {#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
-                            {#										</li>#}
-                            {#										<li class="last">#}
-                            {#										  <div class="view view-first">#}
-                            {#					   		  			   <img src="{% static 'images/pic3.jpg' %}" class="img-responsive" alt=""/>#}
-                            {#											 <div class="mask">#}
-                            {#						                        <div class="info1"> </div>#}
-                            {#								              </div>#}
-                            {#								             <div class="tab_desc">#}
-                            {#											  <div class="tab_desc_1">#}
-                            {#												  <h5>Lorem ipsum dolor</h5>#}
-                            {#											  </div>#}
-                            {#											  <div class="tab_desc_2">#}
-                            {#												  <p>$2002</p>#}
-                            {#											  </div>#}
-                            {#											  <div class="clearfix"></div>#}
-                            {#											  </div>#}
-                            {#										  </div>#}
-                            {#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
-                            {#										</li>#}
-                            {#									    <li>#}
-                            {#									     <div class="view view-first">#}
-                            {#					   		  			   <img src="{% static 'images/pic9.jpg' %}" class="img-responsive" alt=""/>#}
-                            {#											 <div class="mask">#}
-                            {#						                        <div class="info1"> </div>#}
-                            {#								              </div>#}
-                            {#								              <div class="tab_desc">#}
-                            {#											  <div class="tab_desc_1">#}
-                            {#												  <h5>Lorem ipsum dolor</h5>#}
-                            {#											  </div>#}
-                            {#											  <div class="tab_desc_2">#}
-                            {#												  <p>$2003</p>#}
-                            {#											  </div>#}
-                            {#											  <div class="clearfix"></div>#}
-                            {#											  </div>#}
-                            {#										  </div>#}
-                            {#										  <img src="{% static 'images/rating.png' %}" alt="" />#}
-                            {#										</li>#}
-                            {#										<li>#}
-                            {#										 <div class="view view-first">#}
-                            {#					   		  			   <img src="{% static 'images/pic12.jpg' %}" class="img-responsive" alt=""/>#}
-                            {#											 <div class="mask">#}
-                            {#						                        <div class="info1"> </div>#}
 
                             <div class="clearfix"></div>
                         </ul>
@@ -602,8 +533,7 @@
                         <img src="{% static 'images/shipping-icon.png' %}" alt=""/>
                     </div>
                     <div class="icon-text">
-                        <p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem feworem ipsum is dolor sit
-                            sud spendi desig sunpoen controey feworem ipsum is dolor sit suspendi desig.</p>
+                        <p>　　以质量求生存，以信誉促发展。坚持团结稳定，齐心协力干事业。我与公司荣辱与共，公司与我共同发展。</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>

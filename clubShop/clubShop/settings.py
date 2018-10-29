@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'goods',
     'show',
     'DjangoUeditor',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 # 上传文件的URL访问的位置
 MEDIA_URL = '/static/images/'
+
+
+#  关闭浏览器自动删除
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#发送邮件配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+#发送邮件的邮箱
+EMAIL_HOST_USER = '15229321746@163.com'
+#在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'rr03200213'
+#收件人看到的发件人
+EMAIL_FROM = 'club<15229321746@163.com>'
+
+
+# --------------djcelery配置---------------
+
+
+
+
+# ------------结束配置--------------------

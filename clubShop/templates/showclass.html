@@ -1,8 +1,8 @@
-{% load staticfiles %}
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
-    <title>商品列表</title>
+    <title>健身课程</title>
     <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -82,11 +82,11 @@
                 <a href="index.html"><h1>sporty</h1></a>
             </div>
             <div class="header_bottom_right">
-                <div class="h_menu4"><!-- start h_menu4 -->
-                    <a class="toggleMenu" href="#">Menu</a>
+                <div class="h_menu4">
+                    <a class="toggleMenu" href="">Menu</a>
                     <ul class="nav">
                         <li class="active"><a href="/">首页</a></li>
-                        <li><a href="{% url 'goods:cate' %}" class="root">健身器材</a>
+                        <li><a href="{% url 'goods:showall' 1 %}" class="root">健身器材</a>
                             <ul>
                                 {% for cate in cates %}
                                     <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
@@ -102,6 +102,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
+
                         <li><a href="{% url 'show:classes' %}">课程</a>
                             <ul>
                                 {% for c in all_class %}
@@ -147,14 +148,14 @@
     <div class="container">
         <ul class="breadcrumbs">
             <li class="home">
-                <a href="/" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
+                <a href="index.html" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
                 <span>&gt;</span>
             </li>
             <li>
-                {{ cate.name }}
+                课程
             </li>&nbsp;
             <span>&gt;</span>
-            <li>产品列表</li>
+            <li>课程列表</li>
         </ul>
         <ul class="previous">
             <li><a href="/">回到首页</a></li>
@@ -164,24 +165,25 @@
 </div>
 <div class="container">
     <div class="biseller-info">
-        <h3 class="new-models">Sales Models</h3>
+        <h3 class="new-models">最新课程</h3>
         <ul id="flexiselDemo3">
-            {% for product in product_all %}
+            {% for product in page %}
                 <li>
                     <div class="biseller-column">
                         <img src="{{ product.image }}" alt="" class="veiw-img">
                         <div class="veiw-img-mark">
-                            <a href="{% url 'goods:detail' product.id %}">查看详情</a>
+                            <a href="{% url 'show:classdetail' product.id %}">查看详情</a>
                         </div>
                         <div class="biseller-name">
                             <h4>{{ product.name }}</h4>
-                            <p>$ {{ product.price }}</p>
+{#                            <p> 周期/{{ product.classes }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课时/ {{ product.days }}</span></p>#}
+
                         </div>
                         <a href="">
-                            <button class="add2cart">
-                                <i class="white-cart1"></i>
-                                <span>| Add to Cart</span>
-                            </button>
+                        <button class="glyphicon glyphicon-asterisk" style="color: #fb4d01">
+{#{#                                    <i class="white-cart1"></i>#}
+                            <span>|Go to Learn</span>
+                        </button>
                         </a>
                     </div>
                 </li>
@@ -221,83 +223,29 @@
     <div class="best-seller">
 
         <div class="biseller-info">
-            <h3 class="new-models">最新商品</h3>
+            <h3 class="new-models">在售课程</h3>
             <ul id="flexiselDemo1">
-                {% for product in product_all %}
+                {% for product in page %}
                     <li>
                         <div class="biseller-column">
                             <img src="{{ product.image }}" alt="">
                             <div class="veiw-img-mark">
-                                <a href="{% url 'goods:detail' product.id %}">查看详情</a>
+                                <a href="{% url 'show:classdetail' product.id %}">查看详情</a>
                             </div>
                             <div class="biseller-name">
                                 <h4>{{ product.name }} </h4>
-                                <p>$ {{ product.price }}</p>
+{#                                <p>$ {{ product.price }}</p>#}
                             </div>
                             <a href="single.html">
-                                <button class="add2cart">
-                                    <i class="white-cart1"></i>
-                                    <span>| Add to Cart</span>
+                                <button class="glyphicon glyphicon-asterisk" style="color: #fb4d01">
+{#                                    <i class="white-cart1"></i>#}
+                                    <span>|Go to Learn</span>
                                 </button>
                             </a>
                         </div>
                     </li>
                 {% endfor %}
 
-                <li>
-                    <div class="biseller-column">
-                        <img src="images/sm3.jpg" alt="">
-                        <div class="veiw-img-mark">
-                            <a href="single.html">Quick view</a>
-                        </div>
-                        <div class="biseller-name">
-                            <h4>Classic Bicycle </h4>
-                            <p>$ 219.99</p>
-                        </div>
-                        <a href="single.html">
-                            <button class="add2cart">
-                                <i class="white-cart1"></i>
-                                <span>| Add to Cart</span>
-                            </button>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="biseller-column">
-                        <img src="images/sm1.jpg" alt="">
-                        <div class="veiw-img-mark">
-                            <a href="single.html">Quick view</a>
-                        </div>
-                        <div class="biseller-name">
-                            <h4>Classic Bicycle </h4>
-                            <p>$ 219.99</p>
-                        </div>
-                        <a href="single.html">
-                            <button class="add2cart">
-                                <i class="white-cart1"></i>
-                                <span>| Add to Cart</span>
-                            </button>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="biseller-column">
-                        <img src="images/sm4.jpg" alt="">
-                        <div class="veiw-img-mark">
-                            <a href="single.html">Quick view</a>
-                        </div>
-                        <div class="biseller-name">
-                            <h4>Classic Bicycle </h4>
-                            <p>$ 219.99</p>
-                        </div>
-                        <a href="single.html">
-                            <button class="add2cart">
-                                <i class="white-cart1"></i>
-                                <span>| Add to Cart</span>
-                            </button>
-                        </a>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -339,7 +287,8 @@
                     <img src="images/shipping-icon.png" alt=""/>
                 </div>
                 <div class="icon-text">
-                    <p>　　以质量求生存，以信誉促发展。坚持团结稳定，齐心协力干事业。我与公司荣辱与共，公司与我共同发展。</p>
+                    <p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem feworem ipsum is dolor sit sud
+                        spendi desig sunpoen controey feworem ipsum is dolor sit suspendi desig.</p>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -407,7 +356,9 @@
         </div>
         <div class="clearfix"></div>
         <div class="copy-rights">
-            <p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
+            <p>Copyright &copy; 2018.Three hours only . - For life , For health <a href="http://www.cssmoban.com/"
+                                                                                   target="_blank" title="模板之家">模板之家</a>
+                - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
         </div>
     </div>
 </div>

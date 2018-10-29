@@ -109,7 +109,7 @@
 {#								<li><a href="{% url 'goods:showall' %}">按摩椅</a></li>#}
 {#							</ul>#}
 {#						</li>#}
-						<li><a href="{% url 'show:article' %}">ESSAY</a>
+						<li><a href="{% url 'show:articles' %}">文章</a>
 {#							<ul>#}
 {#								<li><a href="product_list.html">Accessories</a></li>#}
 {#								<li><a href="product_list.html">helmets</a></li>#}
@@ -119,14 +119,35 @@
 {#								<li><a href="product_list.html">sales</a></li>#}
 {#							</ul>#}
 						</li>
-						<li><a href="../static/products.html">GOLF</a>
-							<ul>
-								<li><a href="../static/products.html">Accessories</a></li>
-								<li><a href="../static/products.html">Footwear</a></li>
-								<li><a href="../static/products.html">Apparel</a></li>
-							</ul>
-						</li>
-							<li><a href="contact.html">CONTACT</a></li>
+						<li><a href="{% url 'show:classes' %}">课程</a>
+                            <ul>
+                                {% for c in all_class %}
+                                    {% if c.id <= 4 %}
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+							<li><a>我的</a>
+                            <ul>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的账户</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="/user/address/{{ request.session.user_login }}/"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的收货地址</a></li>
+                                <li><a {% if request.session.user_login %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:login' %}"
+                                {% endif %}>我的订单</a></li>
+                            </ul>
+                        </li>
 						</ul>
 						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 				</div>
@@ -147,7 +168,7 @@
 								<img src="{% static 'images/shipping-icon.png' %}" alt="" />
 							</div>
 							<div class="icon-text">
-								<p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem   feworem ipsum is dolor sit sud spendi desig sunpoen controey   feworem ipsum is dolor sit suspendi desig.</p>
+								<p>　　以质量求生存，以信誉促发展。坚持团结稳定，齐心协力干事业。我与公司荣辱与共，公司与我共同发展。</p>
 							</div>
 							<div class="clearfix"></div>
 						</div>

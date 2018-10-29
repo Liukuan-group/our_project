@@ -20,17 +20,23 @@ from django.shortcuts import render
 
 import xadmin as admin
 from goods.models import Category, Goods
-from show.models import article
+from show.models import article, Class
 
 
 def to_index(request):
     cates = Category.objects.all()
     essaies = article.objects.all()
-    hid_list = random.sample(range(1592, 1650),6)
+    all_class = Class.objects.all()
+    hid_list = random.sample(range(1, 60),6)
     hot_goods_all = map(lambda hid: Goods.objects.get(id=hid),hid_list)
 
-    new_list = random.sample(range(1650, 1692), 6)
+    new_list = random.sample(range(60, 120), 6)
     new_goods_all = map(lambda nid: Goods.objects.get(id=nid), new_list)
+    oid = random.randint(1, 120)
+    try:
+        only_product = Goods.objects.get(id=oid)
+    except Exception as e:
+        pass
     return render(request, 'index.html',locals())
 
 urlpatterns = [

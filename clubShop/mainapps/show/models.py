@@ -7,10 +7,12 @@ from DjangoUeditor.models import UEditorField
 # Create your models here.
 
 class Class(BaseModel):
-    name = models.CharField(max_length=20, verbose_name='课程名称')
-    desc = models.CharField(max_length=100, verbose_name='课程描述')
-    image = models.ImageField(upload_to='class', verbose_name='课程图片')
+    name = models.CharField(max_length=50, verbose_name='课程名称')
+    desc = models.CharField(max_length=256, verbose_name='课程描述')
+    image = models.ImageField(upload_to='class', verbose_name='课程图片', max_length=256)
     phone = models.CharField(max_length=15, verbose_name='咨询电话')
+    classes = models.CharField(max_length=5, verbose_name='课时', default=None)
+    days = models.CharField(max_length=5, verbose_name='天数', default=None)
 
     def __str__(self):
         return self.name

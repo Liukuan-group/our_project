@@ -2,7 +2,7 @@
 <html>
 {% load staticfiles %}
 <head>
-<title>Register</title>
+<title>add</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -38,58 +38,65 @@
 					<p>For life , For health</p>
 				</div>
 				<div class="login-section">
-					<ul>
-						<li><a href="{% url 'user:login' %}">Login</a>  </li> |
-						<li><a href="{% url 'user:register' %}">Register</a> </li>
-					</ul>
+					<ul style="color: #0f0f0f">
+                    {% if request.session.user_login %}
+						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
+						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
+                        {% else %}
+						<li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a>  </li> |
+						<li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a> </li>
+                    {% endif %}
+                </ul>
 				</div>
-				<!-- start search-->
-				    <div class="search-box">
-					    <div id="sb-search" class="sb-search">
-							<form>
-								<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
-								<input class="sb-search-submit" type="submit" value="">
-								<span class="sb-icon-search"> </span>
-							</form>
-						</div>
-				    </div>
-					<!-- search-scripts -->
-					<script src="{% static 'js/classie.js' %}"></script>
-					<script src="{% static 'js/uisearch.js' %}"></script>
-						<script>
-							new UISearch( document.getElementById( 'sb-search' ) );
-						</script>
-					<!-- //search-scripts -->
-				<div class="clearfix"></div>
-			</div>
+			<!-- start search-->
+			    <div class="search-box">
+				    <div id="sb-search" class="sb-search">
+						<form>
+							<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+						</form>
+					</div>
+			    </div>
+				<!-- search-scripts -->
+				<script src="{% static 'js/classie.js' %}"></script>
+				<script src="{% static 'js/uisearch.js' %}"></script>
+					<script>
+						new UISearch( document.getElementById( 'sb-search' ) );
+					</script>
+				<!-- //search-scripts -->
+			<div class="clearfix"></div>
 		</div>
-		<div class="bottom-header">
-			<div class="container">
-				<div class="logo">
-					<a href="index.html"><h1>sporty</h1></a>
-				</div>
-				<div class="header_bottom_right">
-					<div class="h_menu4"><!-- start h_menu4 -->
-					<a class="toggleMenu" href="#">Menu</a>
-					<ul class="nav">
-						<li class="active"><a href="/">首页</a></li>
-                        <li><a href="" class="root">健身器材</a>
-                            <ul>
-                                {% for cate in cates %}
-                                    <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <li><a href="{% url 'show:articles' %}">文章</a>
-                            <ul>
-                                {% for title in essaies %}
-                                    {% if title.id <= 4 %}
-                                        <li><a href="{% url 'show:content' title.id %}">{{ title.title }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
-						<li><a href="{% url 'show:classes' %}">课程</a>
+	</div>
+	<div class="bottom-header">
+		<div class="container">
+			<div class="logo">
+				<a href="index.html"><h1>sporty</h1></a>
+			</div>
+			<div class="header_bottom_right">
+				<div class="h_menu4"><!-- start h_menu4 -->
+				<a class="toggleMenu" href="#">Menu</a>
+				<ul class="nav">
+					<li class="active"><a href="/">首页</a></li>
+					<li><a href="../static/products.html" class="root">健身器材</a>
+						<ul>
+							<ul>
+                               {% for cate in cates %}
+                                   <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
+                               {% endfor %}
+                           </ul>
+						</ul>
+					</li>
+					<li><a href="{% url 'show:articles' %}">文章</a>
+                           <ul>
+                               {% for title in essaies %}
+                                   {% if title.id <= 4 %}
+                                       <li><a href="{% url 'show:content' title.id %}">{{ title.title }}</a></li>
+                                   {% endif %}
+                               {% endfor %}
+                           </ul>
+                       </li>
+					<li><a href="{% url 'show:classes' %}">课程</a>
                             <ul>
                                 {% for c in all_class %}
                                     {% if c.id <= 4 %}
@@ -99,38 +106,38 @@
 
                             </ul>
                         </li>
-							<li><a>我的</a>
-                            <ul>
-                                <li><a {% if request.session.user_login %}
-                                    href="#"
-                                {% else %}
-                                    href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
-                                <li><a {% if request.session.user_login %}
-                                    href="/user/address/{{ request.session.user_login }}/"
-                                {% else %}
-                                    href="{% url 'user:login' %}"
-                                {% endif %}>我的收货地址</a></li>
-                                <li><a {% if request.session.user_login %}
-                                    href="#"
-                                {% else %}
-                                    href="{% url 'user:login' %}"
-                                {% endif %}>我的订单</a></li>
-                            </ul>
-                        </li>
-						</ul>
-						<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
-				</div>
-				<!-- end h_menu4 -->
-					<div class="clearfix"></div>
-				</div>
+						<li><a>我的</a>
+                           <ul>
+                               <li><a {% if request.session.user_login %}
+                                   href="#"
+                               {% else %}
+                                   href="{% url 'user:login' %}"
+                               {% endif %}>我的账户</a></li>
+                               <li><a {% if request.session.user_login %}
+                                   href="/user/address/{{ request.session.user_login }}/"
+                               {% else %}
+                                   href="{% url 'user:login' %}"
+                               {% endif %}>我的收货地址</a></li>
+                               <li><a {% if request.session.user_login %}
+                                   href="#"
+                               {% else %}
+                                   href="{% url 'user:login' %}"
+                               {% endif %}>我的订单</a></li>
+                           </ul>
+                       </li>
+					</ul>
+					<script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
+			</div>
+			<!-- end h_menu4 -->
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
+</div>
 	<!-- header-section-ends -->
 	<!-- content-section-starts -->
 	<div class="content">
-		
+
 		<div class="dreamcrub" style="margin-bottom: 0px">
 		<div class="container">
 			   	 <ul class="breadcrumbs">
@@ -139,11 +146,11 @@
                        <span>&gt;</span>
                     </li>
                     <li style="font-size: 2rem">
-                       register
+                       添加收货地址
                     </li>
                 </ul>
                 <ul class="previous">
-                	<li style="font-size: 2rem"><a href="index.html">Back to Previous Page</a></li>
+                	<li style="font-size: 2rem"><a href="index.html">回到首页</a></li>
                 </ul>
 {#                <div class="clearfix"></div>#}
 			   </div>
@@ -152,44 +159,33 @@
 {#		<div class="main-register-form">#}
 		  <div class="register" style="background-color: #f5e79e">
 				 <div class="register-top-grid" >
-					<h3 style="align-content: center;font-size: 4rem" align="center">Welcome To Register</h3>
+					<h3 style="align-content: center;font-size: 4rem" align="center">请修改收货地址</h3>
                  </div>
-                     <form method="post">
+                     <form method="post" action="/user/update/{{ request.session.user_login }}/{{ address.id }}/">
                         {% csrf_token %}
-
 					 <div align="center">
-						<span style="font-size:2rem;">UserName<label>*</label></span><br/>
-						<input type="text" name="username" placeholder="username">
+						<span style="font-size:2rem;">收件人<label>*</label></span><br/>
+						<input type="text" name="receiver" placeholder="收件人姓名" value="{{ address.receiver }}">
 					 </div>
                         <br/><br/>
                      <div align="center">
-                             <span>Password<label>*</label></span><br/>
-                             <input type="password" name="password" placeholder="password">
+                             <span>收货地址<label>*</label></span><br/>
+                             <input type="text" name="addr" placeholder="填写详细地址" value="{{ address.addr }}">
                      </div>
                      <br/><br/>
                      <div align="center">
-                             <span>RePassword<label>*</label></span><br/>
-                             <input type="password" name="repassword" placeholder="repassword">
+                             <span>邮政编码<label>*</label></span><br/>
+                             <input type="text" name="code" placeholder="邮政编码" value="{{ address.code }}">
                      </div>
                      <br/><br/>
 					 <div align="center">
-						 <span>Email<label>*</label></span><br/>
-						 <input type="text" name="email" placeholder="email">
+						 <span>收件人电话<label>*</label></span><br/>
+						 <input type="text" name="phone" placeholder="收件人电话" value="{{ address.phone }}">
 					 </div>
                      <br/><br/>
-{#					 <div class="clearfix"> </div>#}
-{#					   <a class="news-letter" href="#">#}
-{#						 <label class="checkbox"><input type="checkbox" name="checkbox" checked="">Sign Up for Newsletter</label>#}
-{#					   </a>#}
-{#					 </div>#}
-{#				     <div class="register-bottom-grid">#}
-{#						    <h3>LOGIN INFORMATION</h3>#}
-
-{#					 </div>#}
-{#				</form>#}
 				<div class="clearfix"> </div>
 				<div class="register-but" align="center">
-					   <input type="submit" value="register">
+					   <input type="submit" value="修改">
 					   <div class="clearfix"> </div>
                 </div>
               </form>
@@ -201,7 +197,7 @@
 	</div>
 	<!-- content-section-ends -->
 	<!-- footer-section-starts -->
-	<div class="footer"> 
+	<div class="footer">
 		<div class="container">
 			<div class="col-md-3 shop">
 				<h3>shop</h3>
@@ -249,7 +245,7 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="copy-rights">
-                <p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
+				<p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
 			</div>
 		</div>
 	</div>
