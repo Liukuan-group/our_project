@@ -6,20 +6,17 @@ from goods.models import Category
 from show.views import product, content, showclass, classdetail
 
 from show.models import article, Class
+from utils import all_show
 
 
 def products(request):
-    cates = Category.objects.all()
-    essaies = article.objects.all()
-    all_class = Class.objects.all()
+    cates, essaies, all_class = all_show.all_show1(request)
     paginator = Paginator(essaies, per_page=8)
     page = paginator.page(request.GET.get('page', 1))
     return render(request, 'bikes.html', locals())
 
 def classes(request):
-    cates = Category.objects.all()
-    all_class = Class.objects.all()
-    essaies = article.objects.all()
+    cates, essaies, all_class = all_show.all_show1(request)
     paginator = Paginator(all_class,per_page=8)
     page = paginator.page(request.GET.get('page',1))
     return render(request,'showclass.html',locals())

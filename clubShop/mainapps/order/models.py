@@ -1,5 +1,6 @@
 from django.db import models
 from db.base_model import BaseModel
+from goods.models import Goods
 from user.models import Address,User
 # Create your models here.
 
@@ -29,3 +30,29 @@ class OrderInfo(BaseModel):
         db_table = 't_order'
         verbose_name = '订单'
         verbose_name_plural = verbose_name
+
+
+class OrderDetail(models.Model):
+    order = models.ForeignKey(OrderInfo,
+                              on_delete=models.CASCADE,
+                              verbose_name='订单')
+
+    goods = models.ForeignKey(Goods,
+                             on_delete=models.CASCADE,
+                             verbose_name='小说')
+
+    cnt = models.IntegerField(verbose_name='数量',
+                              default=1)
+
+    price = models.DecimalField(verbose_name='单价',
+                                max_digits=10,
+                                decimal_places=2)
+
+    def __str__(self):
+        return self.order.user + '的订单'
+
+    class Meta:
+        db_table = 't_order_detail'
+        verbose_name = '订单详情'
+        verbose_name_plural = verbose_name
+

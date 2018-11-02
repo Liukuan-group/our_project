@@ -39,6 +39,11 @@
 				</div>
 				<div class="login-section">
 					<ul style="color: #0f0f0f">
+                    <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a
+                            href="{% url 'cart:go_cart' %}">购物车</a></span>
+                        <span id="cart_cnt"
+                              style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
+                    </li>
                     {% if request.session.user_login %}
 						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
 						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
@@ -109,17 +114,17 @@
 							<li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>

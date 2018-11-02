@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
+
+from utils import all_show
 from clubShop import settings
 from goods.models import Category
 from show.models import article
@@ -16,6 +18,9 @@ from itsdangerous import SignatureExpired
 #发送激活邮件，包含激活链接: http://127.0.0.1:8000/user/active/3
 # 激活链接中需要包含用户的身份信息, 并且要把身份信息进行加密
 # 加密用户的身份信息，生成激活token 设置30天的过期时间
+from utils import cart
+
+
 def sendEmail(user,email,username):
     serializer = Serializer(settings.SECRET_KEY, 30*24*3600)
     info  = {'confirm': user.id}
@@ -35,8 +40,7 @@ class RegisterView(View):
 
     def get(self,request):
         #注册
-        cates = Category.objects.all()
-        essaies = article.objects.all()
+        cates, essaies, all_class = all_show.all_show1(request)
         return render(request,'register.html', locals())
     def post(self,request):
         username = request.POST.get('username')
@@ -84,7 +88,7 @@ class ActiveView(View):
             # 根据user_id找到当前用户
             user = User.objects.get(id=user_id)
             # 将用户状态改为0，激活用户
-            user.is_active = 0
+            user.is_active = 1
             user.save()
             # 激活成功之后跳转登录页面
             # return redirect(reverse('user:login'))
@@ -96,8 +100,7 @@ class ActiveView(View):
 class LoginView(View):
 
     def get(self,request):
-        cates = Category.objects.all()
-        essaies = article.objects.all()
+        cates, essaies, all_class = all_show.all_show1(request)
         return render(request,'login.html', locals())
     def post(self,request):
         username = request.POST['username']
@@ -117,6 +120,8 @@ class LoginView(View):
         if user is not None:
             login(request,user)
             request.session['user_login'] = username
+
+            request.session['cart_cnt'] = cart.count_cart(user.id)
             return redirect('/')
         else:
             return render(request, 'login.html', {'errormsg': '用户名或密码错误'})
@@ -124,14 +129,15 @@ class LoginView(View):
 #/user/logout
 def log_out(request):
     #退出登录
+    request.session.clear()
     logout(request)
+
     return redirect('/')
 
 '''收货地址功能'''
 #/user/address
 def showaddress(request,name):
-    cates = Category.objects.all()
-    essaies = article.objects.all()
+    cates, essaies, all_class = all_show.all_show1(request)
     #展示收货地址
     user = User.objects.get(username=name)
     address_list = Address.objects.filter(user_id=user.id)
@@ -141,8 +147,7 @@ def showaddress(request,name):
 class AddressView(View):
     #添加收货地址
     def get(self,request,name):
-        cates = Category.objects.all()
-        essaies = article.objects.all()
+        cates, essaies, all_class = all_show.all_show1(request)
         return render(request,'address.html',locals())
     def post(self,request,name):
         receiver = request.POST.get('receiver')
@@ -161,8 +166,7 @@ class AddressView(View):
 #/user/update/<id>  修改收货地址
 class UpdateView(View):
     def get(self,request,name,aid):
-        cates = Category.objects.all()
-        essaies = article.objects.all()
+        cates, essaies, all_class = all_show.all_show1(request)
         #点击修改，根据点击的地址id获取当前地址
         address = Address.objects.get(id=aid)
         return render(request,'updateaddress.html',locals())

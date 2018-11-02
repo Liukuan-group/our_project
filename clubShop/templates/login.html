@@ -101,17 +101,17 @@
 							<li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>
@@ -154,7 +154,7 @@
 			   <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
 			  	 <h3>NEW CUSTOMERS</h3>
 				 <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-				 <a class="acount-btn" href="register.html">Create an Account</a>
+				 <a class="acount-btn" href="{% url 'user:register' %}">Create an Account</a>
 			   </div>
 			   <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
 			  	<h3>REGISTERED CUSTOMERS</h3>

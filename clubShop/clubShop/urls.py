@@ -21,22 +21,19 @@ from django.shortcuts import render
 import xadmin as admin
 from goods.models import Category, Goods
 from show.models import article, Class
+from utils import all_show
 
 
 def to_index(request):
-    cates = Category.objects.all()
-    essaies = article.objects.all()
-    all_class = Class.objects.all()
-    hid_list = random.sample(range(1, 60),6)
-    hot_goods_all = map(lambda hid: Goods.objects.get(id=hid),hid_list)
+    cates, essaies, all_class = all_show.all_show1(request)
+    # classes = Class.objects.all()
+    hot_goods_all = map(lambda hid: Goods.objects.get(id=hid),random.sample(range(1, 60),6))
 
     new_list = random.sample(range(60, 120), 6)
     new_goods_all = map(lambda nid: Goods.objects.get(id=nid), new_list)
     oid = random.randint(1, 120)
-    try:
-        only_product = Goods.objects.get(id=oid)
-    except Exception as e:
-        pass
+    only_product = Goods.objects.get(id=oid)
+    imgsrc = only_product.bigimg.bigPic.split('.jpg')[0]+'.jpg'
     return render(request, 'index.html',locals())
 
 urlpatterns = [
@@ -45,6 +42,7 @@ urlpatterns = [
     url(r'^user/', include('user.urls', namespace='user')),#用户模块
     url(r'^goods/', include('goods.urls', namespace='goods')),
     url(r'^show/',include('show.urls',namespace='show')),  #文章展示模块
+    url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^order/', include('order.urls', namespace='order')),
     url(r'', to_index),
 ]

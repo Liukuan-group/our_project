@@ -43,9 +43,15 @@
         <div class="container">
             <div class="header-left">
                 <p>For life , For health</p>
+
             </div>
             <div class="login-section">
                 <ul style="color: #0f0f0f">
+                <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a
+                            href="{% url 'cart:go_cart' %}">购物车</a></span>
+                        <span id="cart_cnt"
+                              style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
+                    </li>
                     {% if request.session.user_login %}
 						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
 						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
@@ -115,10 +121,10 @@
                         <li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
@@ -147,7 +153,7 @@
     <div class="container">
         <ul class="breadcrumbs">
             <li class="home">
-                <a href="/" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
+                <a href="/" title="Go to Home Page"><img src="{% static 'images/home.png' %}" alt=""/></a>&nbsp;
                 <span>&gt;</span>
             </li>
             <li>
@@ -157,6 +163,7 @@
             <li>产品列表</li>
         </ul>
         <ul class="previous">
+
             <li><a href="/">回到首页</a></li>
         </ul>
         <div class="clearfix"></div>
@@ -167,11 +174,12 @@
         <h3 class="new-models">Sales Models</h3>
         <ul id="flexiselDemo3">
             {% for product in product_all %}
+                 <a href="{% url 'goods:detail' product.id %}">
                 <li>
                     <div class="biseller-column">
                         <img src="{{ product.image }}" alt="" class="veiw-img">
                         <div class="veiw-img-mark">
-                            <a href="{% url 'goods:detail' product.id %}">查看详情</a>
+                           查看详情
                         </div>
                         <div class="biseller-name">
                             <h4>{{ product.name }}</h4>
@@ -185,6 +193,7 @@
                         </a>
                     </div>
                 </li>
+                </a>
             {% endfor %}
         </ul>
     </div>

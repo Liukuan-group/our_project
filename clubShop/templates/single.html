@@ -65,6 +65,11 @@
             </div>
             <div class="login-section">
                 <ul style="color: #0f0f0f">
+                    <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a
+                            href="{% url 'cart:go_cart' %}">购物车</a></span>
+                        <span id="cart_cnt"
+                              style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
+                    </li>
                     {% if request.session.user_login %}
                         <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
                         <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
@@ -90,6 +95,25 @@
             <script src="{% static 'js/uisearch.js' %}"></script>
             <script>
                 new UISearch(document.getElementById('sb-search'));
+
+                function add_cart(book_id) {
+                    cnt = $('#cart_cnt').text()
+                    if (cnt == '') cnt = 0;
+                    // 将字符串转成整数(Number, float, int)
+                    // Number()
+                    // parseFloat()
+                    $('#cart_cnt').text(parseInt(cnt) + 1);
+                    url = '/cart/add/goods_id/'.replace('goods_id', {{ product.id }});
+                    $.getJSON(url, function (data) {
+                        if (data.code == 200) {
+                            alert(data.msg);
+                        } else {
+                            if (confirm('用户未登录，是否跳转到登录页面')) {
+                                window.open('/user/login/', target = '_self');
+                            }
+                        }
+                    })
+                }
             </script>
             <!-- //search-scripts -->
             <div class="clearfix"></div>
@@ -105,7 +129,7 @@
                     <a class="toggleMenu" href="">Menu</a>
                     <ul class="nav">
                         <li class="active"><a href="/">首页</a></li>
-                        <li><a href="" class="root">健身器材</a>
+                        <li><a href="{% url 'goods:showall' 2 %}" class="root">健身器材</a>
                             <ul>
                                 {% for cate in cates %}
                                     <li><a href="{% url 'goods:showall' cate.id %}">{{ cate.name }}</a></li>
@@ -126,7 +150,7 @@
                             <ul>
                                 {% for c in all_class %}
                                     {% if c.id <= 4 %}
-                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a></li>
                                     {% endif %}
                                 {% endfor %}
 
@@ -135,17 +159,17 @@
                         <li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>
@@ -244,7 +268,7 @@
 
                         </div>
                         <div class="btn_form">
-                            <a href="single.html">购买</a>
+                            <button class="button1"><a onclick="add_cart({{ book_id }})">购买</a>
                         </div>
                         {#					<a href="#"><span>login to save in wishlist </span></a>#}
 
@@ -257,25 +281,26 @@
                 </div>
                 <div class="single-bottom2">
                     <h6>相关产品</h6>
-                {% for diffpro in diff_goods_all1 %}
-                    <div class="product">
-                        <div class="product-desc">
-                            <div class="product-img">
-                                <img src="{{ diffpro.image }}" class="img-responsive " alt=""/>
+                    {% for diffpro in diff_goods_all1 %}
+                        <div class="product">
+                            <div class="product-desc">
+                                <div class="product-img">
+                                    <img src="{{ diffpro.image }}" class="img-responsive " alt=""/>
+                                </div>
+                                <div class="prod1-desc">
+                                    <h5><a class="product_link"
+                                           href="{% url 'goods:detail' diffpro.id %}">{{ diffpro.name }}</a></h5>
+                                    <p class="product_descr"> {{ diffpro.desc }} </p>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="prod1-desc">
-                                <h5><a class="product_link" href="{% url 'goods:detail' diffpro.id %}">{{ diffpro.name }}</a></h5>
-                                <p class="product_descr"> {{ diffpro.desc }} </p>
+                            <div class="product_price">
+                                <span class="price-access">${{ diffpro.price }}</span>
+                                <button><span><a onclick="add_cart({{ book_id }})">Add to cart</a></span></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="product_price">
-                            <span class="price-access">${{ diffpro.price }}</span>
-                            <button class="button1"><span>Add to cart</span></button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
 
                 </div>
             </div>

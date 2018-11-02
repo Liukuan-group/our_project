@@ -65,6 +65,9 @@
             </div>
             <div class="login-section">
                 <ul style="color: #0f0f0f">
+                <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a href="{% url 'cart:go_cart' %}">购物车</a></span>
+                <span id="cart_cnt"
+                              style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
                     {% if request.session.user_login %}
                         <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
                         <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
@@ -136,17 +139,17 @@
                         <li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>
@@ -170,7 +173,7 @@
                 <img src="{% static 'images/main.jpg' %}" alt=""/>
             </div>
             <div class="col-md-4 sub">
-                <img src="{{ only_product.bigimg.smallimg.smallPic.0 }}" style="height: 320px" alt=""/>
+                <a href="{% url 'goods:detail' only_product.id %}"><img src="{{ imgsrc }}" style="height: 320px" alt=""/></a>
                 <div class="add-to-cart">
                     <p>{{ only_product.name }}</p>
                     <form action="" class="sky-form">
@@ -195,7 +198,7 @@
                     <span>${{ only_product.price }}</span>
                     <button class="cart-button">
                         <i class="white-cart"></i>
-                        <span>| Add to Cart</span>
+                        <a href=""><span>| Add to Cart</span></a>
                     </button>
                 </div>
                 <div class="clearfix"></div>
@@ -219,7 +222,7 @@
                 </a>
             </div>
             <div class="preview span_66">
-                <a href="">
+                <a href="{% url 'show:classes' %}">
                     <img src="{% static 'images/side.jpg' %}" alt=""/>
                     <i class="bag"></i>
                 </a>
@@ -244,9 +247,9 @@
                                         <div class="view view-first">
                                             <img src="{{ hot_good.image }}" class="img-responsive" alt=""/>
                                             <div class="info1"><h4>hot</h4></div>
-                                            <div class="mask">
-
-                                            </div>
+{#                                            <div class="mask">#}
+{##}
+{#                                            </div>#}
                                             <div class="tab_desc">
                                                 <div class="tab_desc_1">
                                                     <h5>{{ hot_good.name }}</h5>
@@ -273,9 +276,9 @@
                                     <li style="margin: 10px">
                                         <div class="view view-first">
                                             <img src="{{ new_good.image }}" class="img-responsive" alt=""/>
-                                            <div class="mask">
-                                                <div class="info1"></div>
-                                            </div>
+{#                                            <div class="mask">#}
+{#                                                <div class="info1"></div>#}
+{#                                            </div>#}
                                             <div class="tab_desc">
                                                 <div class="tab_desc_1">
                                                     <h5>{{ new_good.name }}</h5>

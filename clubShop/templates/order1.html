@@ -1,8 +1,8 @@
+{% load  staticfiles %}
 <!DOCTYPE html>
-{% load staticfiles %}
 <html>
 <head>
-    <title>健身课程</title>
+    <title>For life For health</title>
     <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -34,6 +34,25 @@
             });
         });
     </script>
+    <script src="{% static 'js/easyResponsiveTabs.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true   // 100% fit in a container
+            });
+        });
+    </script>
+    <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -46,17 +65,15 @@
             </div>
             <div class="login-section">
                 <ul style="color: #0f0f0f">
-                <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a
-                            href="{% url 'cart:go_cart' %}">购物车</a></span>
-                        <span id="cart_cnt"
+                <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a href="{% url 'cart:go_cart' %}">购物车</a></span>
+                <span id="cart_cnt"
                               style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
-                    </li>
                     {% if request.session.user_login %}
-						<li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a>  </li> |
-						<li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a> </li>
-                        {% else %}
-						<li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a>  </li> |
-						<li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a> </li>
+                        <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
+                        <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
+                    {% else %}
+                        <li><a href="{% url 'user:login' %}" style="color: #0f0f0f">登录</a></li> |
+                        <li><a href="{% url 'user:register' %}" style="color: #0f0f0f">注册</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -87,6 +104,7 @@
                 <a href="index.html"><h1>sporty</h1></a>
             </div>
             <div class="header_bottom_right">
+                <!-- start h_menu4 -->
                 <div class="h_menu4">
                     <a class="toggleMenu" href="">Menu</a>
                     <ul class="nav">
@@ -119,7 +137,6 @@
                             </ul>
                         </li>
                         <li><a>我的</a>
-
                             <ul>
                                 <li><a {% if request.session.user_login %}
                                     href="{% url 'cart:go_cart' %}"
@@ -150,171 +167,29 @@
 <!-- header-section-ends -->
 <!-- content-section-starts -->
 
-<div class="dreamcrub">
-    <div class="container">
-        <ul class="breadcrumbs">
-            <li class="home">
-                <a href="index.html" title="Go to Home Page"><img src="images/home.png" alt=""/></a>&nbsp;
-                <span>&gt;</span>
-            </li>
-            <li>
-                课程
-            </li>&nbsp;
-            <span>&gt;</span>
-            <li>课程列表</li>
-        </ul>
-        <ul class="previous">
-            <li><a href="/">回到首页</a></li>
-        </ul>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<div class="container">
-    <div class="biseller-info">
-        <h3 class="new-models">最新课程</h3>
-        <ul id="flexiselDemo3">
-            {% for product in page %}
-                <li>
-                    <div class="biseller-column">
-                        <img src="{{ product.image }}" alt="" class="veiw-img">
-                        <div class="veiw-img-mark">
-                            <a href="{% url 'show:classdetail' product.id %}">查看详情</a>
-                        </div>
-                        <div class="biseller-name">
-                            <h4>{{ product.name }}</h4>
-{#                            <p> 周期/{{ product.classes }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课时/ {{ product.days }}</span></p>#}
-
-                        </div>
-                        <a href="">
-                        <button class="glyphicon glyphicon-asterisk" style="color: #fb4d01">
-{#{#                                    <i class="white-cart1"></i>#}
-                            <span>|Go to Learn</span>
-                        </button>
-                        </a>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#flexiselDemo3").flexisel({
-                visibleItems: 4,
-                animationSpeed: 1000,
-                autoPlay: false,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
-                }
-            });
-
-        });
-    </script>
-    <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-
-    <div class="best-seller">
-
-        <div class="biseller-info">
-            <h3 class="new-models">在售课程</h3>
-            <ul id="flexiselDemo1">
-                {% for product in page %}
-                    <li>
-                        <div class="biseller-column">
-                            <img src="{{ product.image }}" alt="">
-                            <div class="veiw-img-mark">
-                                <a href="{% url 'show:classdetail' product.id %}">查看详情</a>
-                            </div>
-                            <div class="biseller-name">
-                                <h4>{{ product.name }} </h4>
-{#                                <p>$ {{ product.price }}</p>#}
-                            </div>
-                            <a href="single.html">
-                                <button class="glyphicon glyphicon-asterisk" style="color: #fb4d01">
-{#                                    <i class="white-cart1"></i>#}
-                                    <span>|Go to Learn</span>
-                                </button>
-                            </a>
-                        </div>
-                    </li>
-                {% endfor %}
-
-            </ul>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#flexiselDemo1").flexisel({
-                visibleItems: 4,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
-                }
-            });
-
-        });
-    </script>
-    <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-
-    <div class="clearfix"></div>
-    <div class="shipping">
-        <div class="shipping-section-grid">
-            <div class="col-md-7 shipping-left-grid">
-                <h3>free shipping</h3>
-                <div class="icon">
-                    <img src="images/shipping-icon.png" alt=""/>
-                </div>
-                <div class="icon-text">
-                    <p>Lorem ipsum is dolor sit suspendise amet latest videos of lorem feworem ipsum is dolor sit sud
-                        spendi desig sunpoen controey feworem ipsum is dolor sit suspendi desig.</p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-5 shipping-right-grid">
-                <h3>news letter</h3>
-                <div class="news-search-box">
-                    <form>
-                        <input type="text" class="text" value="" onfocus="this.value = '';"
-                               onblur="if (this.value == '') {this.value = '';}">
-                        <input type="submit" value>
-                    </form>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
+<h1 style="margin-left: 200px">恭喜您，成为我公司首位用户，此次购物免单</h1>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+<div class="common_list_con clearfix" style="margin-top: 100px;margin-bottom: 300px; font-size: 20px">
+		<div class="pay_style_con clearfix">
+			<input type="radio" name="pay_style" value="1" checked>
+			<label class="cash">货到付款</label>
+			<input type="radio" name="pay_style" value="2">
+			<label class="weixin">微信支付</label>
+			<input type="radio" name="pay_style" value="3">
+			<label class="zhifubao">支付宝支付</label>
+			<input type="radio" name="pay_style" value="4">
+			<label class="bank">银行卡支付</label>
+		</div>
+	</div>
 <!-- content-section-ends -->
 <!-- footer-section-starts -->
-<div class="footer">
+<div class="footer" style="padding: 90px">
     <div class="container">
         <div class="col-md-3 shop">
             <h3>shop</h3>
@@ -362,9 +237,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="copy-rights">
-            <p>Copyright &copy; 2018.Three hours only . - For life , For health <a href="http://www.cssmoban.com/"
-                                                                                   target="_blank" title="模板之家">模板之家</a>
-                - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+            <p>Copyright &copy; 2018.Three hours only . - For life , For health </p>
         </div>
     </div>
 </div>

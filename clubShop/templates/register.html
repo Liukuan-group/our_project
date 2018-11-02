@@ -102,17 +102,17 @@
 							<li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>

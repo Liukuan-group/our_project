@@ -13,7 +13,6 @@
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
-
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
@@ -23,18 +22,7 @@
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700' rel='stylesheet' type='text/css'>
     <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
     <script src="{% static 'js/responsiveslides.min.js' %}"></script>
-    <script>
-        $(function () {
-            $("#slider").responsiveSlides({
-                auto: true,
-                nav: true,
-                speed: 500,
-                namespace: "callbacks",
-                pager: true,
-            });
-        });
-    </script>
-
+    <script src="{% static 'css/article_list.css' %}"></script>
 </head>
 <body>
 <!-- header-section-starts -->
@@ -46,6 +34,11 @@
             </div>
             <div class="login-section">
                 <ul style="color: #0f0f0f">
+                <li class="cart"><span class="glyphicon glyphicon-shopping-cart" style=""></span><span><a
+                            href="{% url 'cart:go_cart' %}">购物车</a></span>
+                        <span id="cart_cnt"
+                              style="{% if not request.session.cart_cnt %}display:none{% endif %}">{{ request.session.cart_cnt }}</span>
+                    </li>
                     {% if request.session.user_login %}
                         <li><a style="color: #0f0f0f">用户名：{{ request.session.user_login }}</a></li> |
                         <li><a href="{% url 'user:logout' %}" style="color: #0f0f0f">退出登录</a></li>
@@ -107,7 +100,7 @@
                             <ul>
                                 {% for c in all_class %}
                                     {% if c.id <= 4 %}
-                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a> </li>
+                                        <li><a href="{% url 'show:classdetail' c.id %}">{{ c.name }}</a></li>
                                     {% endif %}
                                 {% endfor %}
 
@@ -116,17 +109,17 @@
                         <li><a>我的</a>
                             <ul>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'cart:go_cart' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
-                                {% endif %}>我的账户</a></li>
+                                {% endif %}>购物车</a></li>
                                 <li><a {% if request.session.user_login %}
                                     href="/user/address/{{ request.session.user_login }}/"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的收货地址</a></li>
                                 <li><a {% if request.session.user_login %}
-                                    href="#"
+                                    href="{% url 'order:test' %}"
                                 {% else %}
                                     href="{% url 'user:login' %}"
                                 {% endif %}>我的订单</a></li>
@@ -164,50 +157,33 @@
     </div>
 </div>
 <div class="container">
-
     <div class="biseller-info">
         {% block content %}
             <h3 class="new-models">Article Title</h3>
-
-            <hr id="flexiselDemo3">
             {% for i in page %}
-                <div class="title">
-                    <img src="{{ i.image }}">
-                    <a href="{% url 'show:content' i.id %} ">{{ i.title }}
-                        <hr>
-                    </a>
-                </div>
+                <img src="{{ i.image }}" class="bigimg">
+                <a href="{% url 'show:content' i.id %} " style="font-size: 1.8em;color: #1da7ee">{{ i.title }}
+                    <hr><hr>
+                </a>
             {% endfor %}
-            <nav aria-label="Page navigation">
+            <div class="col-lg-offset-5" style="" >
                 <ul class="pagination">
-                    {% if page.has_previous %}
-                        <a href="{% url 'show:article' page.previous_page_number %}">上一页</a>
+                    {% if page.end_index %}
+                        <a href="{% url 'show:article' 1 %}">首页</a>
                     {% endif %}
-                    {{ pag }}/{{ page_info.num_pages }}
-                    {% if page.has_next %}
-                        <a href="{% url 'show:article' page.next_page_number %}">下一页</a>
+                    {% for page in paginator.page_range %}
+                        <a href="{% url 'show:article'  page %}">{{ page }}</a>
+                    {% endfor %}
+                    {{ pag }}/{{ paginator.num_pages }}
+                    {% if page.start_index %}
+                        <a href="{% url 'show:article' 3 %}">末页</a>
                     {% endif %}
                 </ul>
-            </nav>
             </div>
+        </div>
         {% endblock %}
 
-
-    <script type="text/javascript">
-
-    </script>
-    <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-
     <div class="best-seller">
-
-        <div class="biseller-info">
-
-        </div>
-        <script type="text/javascript">
-
-        </script>
-        <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
-
         <div class="clearfix"></div>
         <div class="shipping">
             <div class="shipping-section-grid">
@@ -238,7 +214,6 @@
     <!-- content-section-ends -->
     <!-- footer-section-starts -->
     <div class="footer">
-        <div class="container">
             <div class="col-md-3 shop">
                 <h3>shop</h3>
                 <ul>

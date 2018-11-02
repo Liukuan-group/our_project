@@ -58,3 +58,6 @@ class bigImg(BaseModel):
         verbose_name_plural = verbose_name
 
 
+
+
+
